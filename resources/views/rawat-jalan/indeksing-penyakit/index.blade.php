@@ -99,8 +99,8 @@
                         <td class="p-3 border-b">{{ $item->usia }}</td>
                         <td class="p-3 border-b">{{ $item->jk == 1 ? 'Laki-Laki' : 'Perempuan' }}</td>                      
                         <td class="p-3 border-b">{{ $item->jenis_kunjungan == 1 ? 'Lama' : 'Baru' }}</td>                      
-                        <td class="p-3 border-b">{{ $item->icd10primary }}</td>
-                        <td class="p-3 border-b">{{ $item->icd10secondary }}</td>
+                        <td class="p-3 border-b">{{ $item->diagnosa }}</td>
+                        <td class="p-3 border-b">{{ $item->kode }}</td>
                         <td class="p-3 border-b">{{ $item->cara_keluar == 1 ? 'Hidup' : 'Mati' }}</td>                      
                         <td class="p-3 border-b">
                             <button class="bg-blue-500 text-white px-4 py-1 rounded">Lihat</button>

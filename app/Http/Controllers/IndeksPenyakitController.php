@@ -21,11 +21,11 @@ class IndeksPenyakitController extends Controller
               ->orWhere('icd10_primary.kode', 'like', '%' . $request->nama_penyakit . '%');
         });
     }
-
+    
     if ($request->filled('tgl_awal') && $request->filled('tgl_akhir')) {
         $data->whereBetween('tgl_kunjungan', [$request->tgl_awal, $request->tgl_akhir]);
     }
-
+    $data = $data->select('master_indeksing.*','icd10_primary.nama AS diagnosa','icd10_primary.nama AS kode');
     $data = $data->get();
     $dataCount = $data->count();
 
