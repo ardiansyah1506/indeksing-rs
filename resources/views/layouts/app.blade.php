@@ -106,14 +106,14 @@
                         </svg>
                     </div>
                     <ul id="laporan-dropdown" class="hidden transition-all duration-200 list-none pl-10 pr-2 py-1 space-y-1">
-                        {{-- <li class="rounded-md p-2 hover:bg-blue-50 @if(request()->routeIs('laporan.penyakit')) bg-blue-100 text-blue-700 @endif">
+                        <li class="rounded-md p-2 hover:bg-blue-50 @if(request()->routeIs('laporan.penyakit')) bg-blue-100 text-blue-700 @endif">
                             <a href="{{ route('penyakit.index') }}" class="flex items-center gap-2 text-gray-700 hover:text-blue-700">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                 </svg>
                                 <span>Laporan Indeks Penyakit</span>
                             </a>
-                        </li> --}}
+                        </li>
                         <li class="rounded-md p-2 hover:bg-blue-50 @if(request()->routeIs('laporan.dokter')) bg-blue-100 text-blue-700 @endif">
                             <a href="{{ route('indeksing-dokter.index') }}" class="flex items-center gap-2 text-gray-700 hover:text-blue-700">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

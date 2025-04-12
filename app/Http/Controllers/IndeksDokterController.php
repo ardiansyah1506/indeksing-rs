@@ -21,12 +21,11 @@ class IndeksDokterController extends Controller
         if ($request->filled('tgl_awal') && $request->filled('tgl_akhir')) {
             $data->whereBetween('tgl_kunjungan', [$request->tgl_awal, $request->tgl_akhir]);
         }
-    
         $data = $data->get();
         $dataCount = $data->count();
-    if(empty($request->all())){
-        return view('rawat-jalan.indeksing-dokter.index', compact('data','dataCount','dokter'))->withInput();
-    }
+    // if(empty($request->all())){
+    //     return view('rawat-jalan.indeksing-dokter.index', compact('data','dataCount','dokter'))->withInput();
+    // }
     return view('rawat-jalan.indeksing-dokter.index', compact('data','dataCount','dokter'));
     }
 }

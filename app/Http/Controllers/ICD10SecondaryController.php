@@ -56,8 +56,18 @@ class ICD10SecondaryController extends Controller
     }
 
     public function destroy(ICD10Secondary $icd10secondary)
-    {
+{
+    try {
         $icd10secondary->delete();
         return redirect()->route('icd10_secondary.index')->with('success', 'Data berhasil dihapus.');
+    } catch (\Exception $e) {
+        Log::error('Gagal menghapus ICD10Secondary: ' . $e->getMessage(), [
+            'id' => $icd10secondary->id,
+            'trace' => $e->getTraceAsString(),
+        ]);
+
+        return redirect()->route('icd10_secondary.index')->with('error', 'Gagal menghapus data.');
     }
+}
+
 }

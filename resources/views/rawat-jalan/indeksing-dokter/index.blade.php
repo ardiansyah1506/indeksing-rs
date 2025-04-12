@@ -10,7 +10,7 @@
 <div class="max-w-full mx-auto bg-gray-100 p-4 min-h-screen">
     <div class="bg-gray-100 p-4 rounded-lg">
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">INDEKS RAWAT JALAN</h2>
+            <h2 class="text-2xl font-bold text-gray-800">INDEKS DOKTER</h2>
             <div class="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -86,7 +86,7 @@ value="{{ request('tgl_akhir') }}">
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $item )
+                    @forelse ($data as $item )
                     <tr class="hover:bg-gray-50">
                         <td class="p-3 border-b">{{ $loop->iteration }}</td>
                         <td class="p-3 border-b">
@@ -109,7 +109,11 @@ value="{{ request('tgl_akhir') }}">
                             <button class="bg-blue-500 text-white px-4 py-1 rounded">Lihat</button>
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+    <tr>
+        <td colspan="5">Tidak ada data ditemukan.</td>
+    </tr>
+                    @endforelse 
                 </tbody>
             </table>
         </div>

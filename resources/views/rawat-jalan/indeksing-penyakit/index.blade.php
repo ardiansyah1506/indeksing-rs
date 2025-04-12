@@ -83,7 +83,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $item )
+                    @forelse ($data as $item )
                     <tr class="hover:bg-gray-50">
                         <td class="p-3 border-b">{{ $loop->iteration }}</td>
                         <td class="p-3 border-b">
@@ -106,7 +106,11 @@
                             <button class="bg-blue-500 text-white px-4 py-1 rounded">Lihat</button>
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+    <tr>
+        <td colspan="5">Tidak ada data ditemukan.</td>
+    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
