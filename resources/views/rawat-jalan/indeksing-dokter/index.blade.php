@@ -20,7 +20,7 @@
         </div>
         <form action="{{ route('indeksing-dokter.index') }}" method="GET">
             @csrf
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-[4vw] justify-center items-center">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-[4vw] justify-center ">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Nama Dokter*</label>
                     <select name="id_dokter" required class="border border-gray-300 p-2 rounded w-full bg-white">
@@ -33,18 +33,21 @@
                     </select>
                     
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Awal*</label>
-                    <input type="date" name="tgl_awal" required class="border border-gray-300 p-2 rounded w-full bg-white"
-                    value="{{ request('tgl_awal') }}">
+                <div class="grid grid-cols-1 gap-3">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Awal*</label>
+                        <input type="date" name="tgl_awal" required class="border border-gray-300 p-2 rounded w-full bg-white"
+                        value="{{ request('tgl_awal') }}">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Akhir*</label>
+                       
+    <input type="date" name="tgl_akhir" required class="border border-gray-300 p-2 rounded w-full bg-white"
+    value="{{ request('tgl_akhir') }}">
+                    </div>
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Akhir*</label>
-                   
-<input type="date" name="tgl_akhir" required class="border border-gray-300 p-2 rounded w-full bg-white"
-value="{{ request('tgl_akhir') }}">
+
                 </div>
-            </div>
         
             <div class="flex justify-center mt-6 space-x-4 mb-10">
                 <button type="reset" class="bg-yellow-500 text-white px-6 py-2 rounded flex items-center">Reset</button>

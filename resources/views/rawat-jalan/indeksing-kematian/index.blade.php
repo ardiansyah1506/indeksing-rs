@@ -10,7 +10,7 @@
 <div class="max-w-full mx-auto bg-gray-100 p-4 min-h-screen">
     <div class="bg-gray-100 p-4 rounded-lg">
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">INDEKS Tindakan</h2>
+            <h2 class="text-2xl font-bold text-gray-800">INDEKS KEMATIAN</h2>
             <div class="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -18,28 +18,20 @@
                 <span class="text-gray-600">Periode Rawat Jalan</span>
             </div>
         </div>
-        <form action="{{ route('penyakit.index') }}" method="GET">
+        <form action="{{ route('indeksing-kematian.index') }}" method="GET">
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-[4vw] justify-center items-center">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Kunjungan*</label>
-                    <select name="jenis_kunjungan" required class="border border-gray-300 p-2 rounded w-full bg-white appearance-none">
-                        <option value="" disabled selected>Pilih Jenis Kunjungan</option>
-                        <option value="2">Lama</option>
-                        <option value="1">Baru</option>
-                    </select>
-                </div>
+                
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Awal*</label>
-                    <input type="date" name="tgl_awal" required class="border border-gray-300 p-2 rounded w-full bg-white">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Nama Tindakan / Kode*</label>
-                    <input type="text" name="tindakan" required class="border border-gray-300 p-2 rounded w-full bg-white">
+                    <input type="date" name="tgl_awal" required class="border border-gray-300 p-2 rounded w-full bg-white"
+                    value="{{ request('tgl_awal') }}">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Akhir*</label>
-                    <input type="date" name="tgl_akhir" required class="border border-gray-300 p-2 rounded w-full bg-white">
+                   
+<input type="date" name="tgl_akhir" required class="border border-gray-300 p-2 rounded w-full bg-white"
+value="{{ request('tgl_akhir') }}">
                 </div>
             </div>
         
@@ -99,8 +91,8 @@
                         <td class="p-3 border-b">{{ $item->usia }}</td>
                         <td class="p-3 border-b">{{ $item->jk == 1 ? 'Laki-Laki' : 'Perempuan' }}</td>                      
                         <td class="p-3 border-b">{{ $item->jenis_kunjungan == 1 ? 'Lama' : 'Baru' }}</td>                      
-                        <td class="p-3 border-b">{{ $item->diagnosa }}</td>
-                        <td class="p-3 border-b">{{ $item->kode }}</td>
+                        <td class="p-3 border-b">{{ $item->icd10primary }}</td>
+                        <td class="p-3 border-b">{{ $item->icd10secondary }}</td>
                         <td class="p-3 border-b">{{ $item->cara_keluar == 1 ? 'Hidup' : 'Mati' }}</td>                      
                         <td class="p-3 border-b">
                             <button class="bg-blue-500 text-white px-4 py-1 rounded">Lihat</button>
@@ -110,7 +102,7 @@
     <tr>
         <td colspan="5">Tidak ada data ditemukan.</td>
     </tr>
-                    @endforelse
+                    @endforelse 
                 </tbody>
             </table>
         </div>

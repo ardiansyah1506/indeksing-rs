@@ -8,19 +8,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .bg-medical {
-            background-image: url('/images/medical-symbol.png');
-            background-size: contain;
+            background-image: url('/logo/LOGO LAB-01.png');
+            background-size:cover;
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0.5;
+            opacity: 0.1;
         }
         
-        .hexagon-pattern {
-            background-image: url('/images/hexagon-pattern.png');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.5;
-        }
+       
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center bg-gray-100">

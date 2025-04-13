@@ -7,6 +7,7 @@
     <title>INDERA - @yield('title', 'Indeks Data Elektronik RJ')</title>
     <link rel="shortcut icon" href="{{ asset('logo/favicon.ico') }}" type="image/x-icon">
     <!-- Tailwind CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -69,7 +70,7 @@
             </div>
         </div>
 
-        <nav class="w-64 bg-white shadow-sm rounded-lg p-4">
+        <nav class="w-64 bg-white shadow-sm rounded-lg p-4 overflow-hidden">
             <ul class="list-none p-0 space-y-2">
                 <!-- Dashboard -->
                 <li class="rounded-md transition-colors @if(request()->routeIs('dashboard')) bg-blue-100 text-blue-700 font-medium @endif hover:bg-blue-50">
@@ -90,61 +91,58 @@
                         <span>Indeks Rawat Jalan</span>
                     </a>
                 </li>
-        
+                <li>
+                    <div class="flex items-center justify-between p-3 text-gray-700 cursor-pointer hover:text-blue-700" data-collapse-toggle='laporan-dropdown'>
+                   <div class="flex items-center gap-3">
+                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                       </svg>
+                       <span>Laporan Rawat Jalan</span>
+                   </div>
+                   <svg id="laporan-icon" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                   </svg>
+               </div>
+               <ul id="laporan-dropdown" class="hidden transition-all duration-200 list-none pl-10 pr-2 py-1 space-y-1">
+                   <li class="rounded-md p-2 hover:bg-blue-50 @if(request()->routeIs('laporan.penyakit')) bg-blue-100 text-blue-700 @endif">
+                       <a href="{{ route('penyakit.index') }}" class="flex items-center gap-2 text-gray-700 hover:text-blue-700">
+                           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                           </svg>
+                           <span>Laporan Indeks Penyakit</span>
+                       </a>
+                   </li>
+                   <li class="rounded-md p-2 hover:bg-blue-50 @if(request()->routeIs('laporan.dokter')) bg-blue-100 text-blue-700 @endif">
+                       <a href="{{ route('indeksing-dokter.index') }}" class="flex items-center gap-2 text-gray-700 hover:text-blue-700">
+                           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                           </svg>
+                           <span>Laporan Indeks Dokter</span>
+                       </a>
+                   </li>
+                   <li class="rounded-md p-2 hover:bg-blue-50 @if(request()->routeIs('laporan.tindakan')) bg-blue-100 text-blue-700 @endif">
+                       <a href="{{ Route('indeksing-tindakan.index') }}" class="flex items-center gap-2 text-gray-700 hover:text-blue-700">
+                           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                           </svg>
+                           <span>Laporan Indeks Tindakan</span>
+                       </a>
+                   </li>
+                   <li class="rounded-md p-2 hover:bg-blue-50 @if(request()->routeIs('laporan.kematian')) bg-blue-100 text-blue-700 @endif">
+                       <a href="{{ Route('indeksing-kematian.index') }}" class="flex items-center gap-2 text-gray-700 hover:text-blue-700">
+                           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                           </svg>
+                           <span>Laporan Indeks Kematian</span>
+                       </a>
+                   </li>
+               </ul>
+                 </li>
                 <!-- Laporan Rawat Jalan -->
-                <li class="rounded-md transition-colors hover:bg-blue-50">
-                    <div class="flex items-center justify-between p-3 text-gray-700 cursor-pointer hover:text-blue-700" 
-                         onclick="toggleDropdown('laporan-dropdown', 'laporan-icon')">
-                        <div class="flex items-center gap-3">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                            <span>Laporan Rawat Jalan</span>
-                        </div>
-                        <svg id="laporan-icon" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </div>
-                    <ul id="laporan-dropdown" class="hidden transition-all duration-200 list-none pl-10 pr-2 py-1 space-y-1">
-                        <li class="rounded-md p-2 hover:bg-blue-50 @if(request()->routeIs('laporan.penyakit')) bg-blue-100 text-blue-700 @endif">
-                            <a href="{{ route('penyakit.index') }}" class="flex items-center gap-2 text-gray-700 hover:text-blue-700">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                </svg>
-                                <span>Laporan Indeks Penyakit</span>
-                            </a>
-                        </li>
-                        <li class="rounded-md p-2 hover:bg-blue-50 @if(request()->routeIs('laporan.dokter')) bg-blue-100 text-blue-700 @endif">
-                            <a href="{{ route('indeksing-dokter.index') }}" class="flex items-center gap-2 text-gray-700 hover:text-blue-700">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                <span>Laporan Indeks Dokter</span>
-                            </a>
-                        </li>
-                        {{-- <li class="rounded-md p-2 hover:bg-blue-50 @if(request()->routeIs('laporan.tindakan')) bg-blue-100 text-blue-700 @endif">
-                            <a href="" class="flex items-center gap-2 text-gray-700 hover:text-blue-700">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                                </svg>
-                                <span>Laporan Indeks Tindakan</span>
-                            </a>
-                        </li>
-                        <li class="rounded-md p-2 hover:bg-blue-50 @if(request()->routeIs('laporan.kematian')) bg-blue-100 text-blue-700 @endif">
-                            <a href="" class="flex items-center gap-2 text-gray-700 hover:text-blue-700">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                <span>Laporan Indeks Kematian</span>
-                            </a>
-                        </li> --}}
-                    </ul>
-                </li>
         
                 <!-- Settings -->
                 <li class="rounded-md transition-colors hover:bg-blue-50">
-                    <div class="flex items-center justify-between p-3 text-gray-700 cursor-pointer hover:text-blue-700" 
-                         onclick="toggleDropdown('settings-dropdown', 'settings-icon')">
+                    <div class="flex items-center justify-between p-3 text-gray-700 cursor-pointer hover:text-blue-700" data-collapse-toggle='settings-dropdown'>
                         <div class="flex items-center gap-3">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
@@ -219,35 +217,24 @@
     <div class="ml-64 p-6 w-full min-h-screen bg-center bg-no-repeat bg-contain relative" 
     @yield('content')
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <!-- Main Content -->
 <script>
-    function toggleDropdown(dropdownId, iconId) {
-        const dropdown = document.getElementById(dropdownId);
-        const icon = document.getElementById(iconId);
-        
-        if (dropdown.classList.contains('hidden')) {
-            dropdown.classList.remove('hidden');
-            icon.classList.add('rotate-180');
-        } else {
-            dropdown.classList.add('hidden');
-            icon.classList.remove('rotate-180');
-        }
-    }
+   document.querySelectorAll('[data-collapse-toggle]').forEach(toggle => {
+        toggle.addEventListener('click', function () {
+            const targetId = this.getAttribute('data-collapse-toggle');
+            const target = document.getElementById(targetId);
+            const icon = this.querySelector('svg');
 
-    // Initialize dropdowns based on route
-    document.addEventListener('DOMContentLoaded', function() {
-        // Check if we're on a route that should show the Laporan dropdown
-        if (window.location.href.includes('indeksing-dokter')) {
-            toggleDropdown('laporan-dropdown', 'laporan-icon');
-        }
-        
-        // Check if we're on a route that should show the Settings dropdown
-        if (window.location.href.includes('poli') || 
-            window.location.href.includes('dokter') || 
-            window.location.href.includes('icd10') || 
-            window.location.href.includes('icd9')) {
-            toggleDropdown('settings-dropdown', 'settings-icon');
-        }
+            if (target) {
+                target.classList.toggle('hidden');
+
+                // Optional: rotate icon
+                if (icon) {
+                    icon.classList.toggle('rotate-180');
+                }
+            }
+        });
     });
 </script>
 </body>
