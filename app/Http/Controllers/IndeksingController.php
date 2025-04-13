@@ -22,11 +22,12 @@ class IndeksingController extends Controller
         $dataIcd10Primary = ICD10Primary::get();
         $dataIcd10Secondary = ICD10Secondary::get();
         $dataIcd9 = ICD9::get();
-        $dataDokter = Dokter::get();
+    $dataCount = $data->count();
+    $dataDokter = Dokter::get();
         $dataPoli = Poli::get();
         $id = MasterIndeksing::latest()->value('id') + 1;
         // dd($data);
-        return view('master-indeksing.index', compact('data','id','dataIcd10Primary','dataIcd10Secondary','dataIcd9','dataPoli','dataDokter'));
+        return view('master-indeksing.index', compact('data','id','dataIcd10Primary','dataIcd10Secondary','dataIcd9','dataPoli','dataDokter','dataCount'));
     }
 
     public function getData(Request $request)
@@ -69,7 +70,7 @@ class IndeksingController extends Controller
                 'alamat' => $request->alamat,
                 'tgl_kunjungan' => $request->tgl_kunjungan,
                 'icd10primary' => $request->icd10primary,
-                'icd10secondary' => $request->icd10secondary,
+                'icd10secondary' => $request->icd10secondary ?? '-',
                 'icd9' => $request->icd9,
                 'id_dokter' => $request->id_dokter,
                 'id_poli' => $request->id_poli,

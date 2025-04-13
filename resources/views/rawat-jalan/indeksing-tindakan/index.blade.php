@@ -76,7 +76,7 @@
                         <th class="p-3 border-b">Umur</th>
                         <th class="p-3 border-b">Jenis Kelamin</th>
                         <th class="p-3 border-b">Jenis Kunjungan</th>
-                        <th class="p-3 border-b">Diagnosa</th>
+                        <th class="p-3 border-b">Tindakan</th>
                         <th class="p-3 border-b">Kode ICD</th>
                         <th class="p-3 border-b">Cara Keluar</th>
                         <th class="p-3 border-b">Keterangan</th>

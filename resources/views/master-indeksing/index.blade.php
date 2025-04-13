@@ -152,7 +152,7 @@
         
 
         <div class="bg-blue-600 text-white p-3 rounded-t-lg flex justify-between items-center">
-            <span class="font-bold">Total: 15</span>
+            <span class="font-bold">Total: {{ $dataCount }}</span>
             <input type="text" placeholder="Search" class="border border-gray-300 p-2 rounded w-48 text-black">
         </div>
 

@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('indeksing-kematian', IndeksKematianController::class);
     Route::resource('indeksing-tindakan', IndeksTindakanController::class);
     Route::resource('penyakit', IndeksPenyakitController::class);
-    Route::get('/pdf', [IndeksKematianController::class, 'printPdf'])->name('pdf');
+    Route::get('/pdf', [IndeksTindakanController::class, 'printPdf'])->name('pdf');
     Route::get('/viewPdf', [IndeksKematianController::class, 'viewPdf'])->name('pdf');
 
     Route::resource('dashboard', DashboardController::class);
