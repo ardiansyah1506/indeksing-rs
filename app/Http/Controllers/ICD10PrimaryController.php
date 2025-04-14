@@ -34,16 +34,17 @@ class ICD10PrimaryController extends Controller
         return view('icd10_primary.edit', compact('icd10Primary'));
     }
 
-    public function update(Request $request, ICD10Primary $ICD10Primary)
+    public function update(Request $request, ICD10Primary $icd10Primary)
     {
         $request->validate([
             'nama' => 'required',
-            'kode' => 'required|unique:icd10_primary,kode,'.$ICD10Primary->id,
+            'kode' => 'required|unique:icd10_primary,kode,'.$icd10Primary->id,
         ]);
-
-        $ICD10Primary->update($request->all());
+    
+        $icd10Primary->update($request->all());
         return redirect()->route('icd10_primary.index')->with('success', 'Data berhasil diperbarui.');
     }
+    
 
     public function destroy(ICD10Primary $ICD10Primary)
     {

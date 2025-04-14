@@ -11,22 +11,22 @@
         <div class="bg-white p-4 rounded-lg shadow-md mb-6">
             <h2 x-text="editMode ? 'Edit Data ICD10 Primary' : 'Tambah Data ICD10 Primary'" class="text-xl font-semibold mb-4"></h2>
 
-            <form :action="editMode ? `/icd10_primary/${editData.id}` : '{{ route('icd10_primary.store') }}'" method="POST" class="space-y-4">
+            <form x-bind:action="editMode ? `/icd10_primary/${editData.id}` : '{{ route('icd10_primary.store') }}'" method="POST" class="space-y-4">
                 @csrf
-                <template x-if="editMode">
+                <div x-show="editMode">
                     <input type="hidden" name="_method" value="PUT">
-                </template>
-
+                </div>
+            
                 <div>
                     <label class="block font-medium">Nama</label>
                     <input type="text" name="nama" class="w-full border px-2 py-1 rounded" x-model="editData.nama" required>
                 </div>
-
+            
                 <div>
                     <label class="block font-medium">Kode</label>
                     <input type="text" name="kode" class="w-full border px-2 py-1 rounded" x-model="editData.kode" required>
                 </div>
-
+            
                 <div class="flex space-x-2">
                     <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded" x-text="editMode ? 'Update' : 'Simpan'"></button>
                     <button type="button" @click="editMode = false; editData = { id: '', nama: '', kode: '' }" class="bg-gray-500 text-white px-4 py-2 rounded" x-show="editMode">Batal</button>
