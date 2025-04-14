@@ -46,9 +46,10 @@ class ICD10PrimaryController extends Controller
     }
     
 
-    public function destroy(ICD10Primary $ICD10Primary)
+    public function destroy(ICD10Primary $icd10_primary)
     {
-        $ICD10Primary->delete();
+        // dd($icd10_primary);
+        $icd10_primary->delete();
         return redirect()->route('icd10_primary.index')->with('success', 'Data berhasil dihapus.');
     }
 }

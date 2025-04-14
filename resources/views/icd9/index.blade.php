@@ -2,14 +2,14 @@
 
 @section('content')
 <div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-4">Data ICD10 Primary</h1>
+    <h1 class="text-2xl font-bold mb-4">Data ICD9</h1>
 
     {{-- Alpine.js untuk toggle edit mode --}}
     <div x-data="{ editMode: false, editData: { id: '', nama: '', kode: '' } }">
 
         {{-- Form Create & Edit --}}
         <div class="bg-white p-4 rounded-lg shadow-md mb-6">
-            <h2 x-text="editMode ? 'Edit Data ICD10 Primary' : 'Tambah Data ICD10 Primary'" class="text-xl font-semibold mb-4"></h2>
+            <h2 x-text="editMode ? 'Edit Data ICD9' : 'Tambah Data ICD9'" class="text-xl font-semibold mb-4"></h2>
 
             <form :action="editMode ? `/icd9/${editData.id}` : '{{ route('icd9.store') }}'" method="POST" class="space-y-4">
                 @csrf
