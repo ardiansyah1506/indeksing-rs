@@ -13,6 +13,8 @@ use App\Http\Controllers\IndeksTindakanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PoliController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login.index');
@@ -23,6 +25,9 @@ Route::get('register', [RegisterController::class, 'showRegisterForm'])->name('r
 Route::post('register', [RegisterController::class, 'register'])->name('register');
 
 Route::group(['middleware' => ['auth']], function() {
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+    
     Route::resource('indeksing', IndeksingController::class);
     Route::resource('indeksing-dokter', IndeksDokterController::class)->only(['index']);
     Route::resource('indeksing-kematian', IndeksKematianController::class)->only(['index']);
