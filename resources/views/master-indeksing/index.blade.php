@@ -189,12 +189,16 @@
                         <td class="p-3 border-b">{{ $item->cara_keluar == 1 ? 'Hidup' : 'Mati' }}</td>                      
                         <td class="p-3 border-b flex gap-2">
                                 <button  data-keterangan="{{ $item->keterangan }}"  class="btn-show bg-blue-500 text-white px-4 py-1 rounded">Lihat</button>
-                            <form action="{{ route('indeksing.destroy', $item->id) }}" method="POST" class="inline">
+                           @can('delete-indeks')
+                                <form action="{{ route('indeksing.destroy', $item->id) }}" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="bg-red-500 text-white px-4 py-1 rounded" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</button>
                             </form>
+                            @endcan
+                            @can('edit-indeks')
                             <a href="{{ route('indeksing.show',$item->id) }}" class="bg-yellow-500 text-white px-4 py-1 rounded">Edit</a>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

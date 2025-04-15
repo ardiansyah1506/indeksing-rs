@@ -53,6 +53,7 @@
 
         <div class="bg-blue-600 text-white p-3 rounded-t-lg flex justify-between items-center">
             <span class="font-bold">Total: {{ $dataCount }}</span>
+            @can('cetak-indeks')
             <button id="printPdfBtn" class="bg-blue-600 text-white font-bold px-6 py-2 rounded flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" width="100" height="100"
                     viewBox="0,0,256,256">
@@ -69,6 +70,7 @@
                 </svg>
                 Cetak
             </button>
+            @endcan
         </div>
 
         <div class="overflow-x-auto bg-white rounded-b-lg">

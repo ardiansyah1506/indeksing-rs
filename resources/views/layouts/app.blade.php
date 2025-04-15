@@ -173,6 +173,7 @@
                         </div>
                         <ul id="settings-dropdown"
                             class="hidden transition-all duration-200 list-none pl-10 pr-2 py-1 space-y-1">
+                            @can('view-poli')
                             <li
                                 class="rounded-md p-2 hover:bg-blue-50 @if (request()->routeIs('laporan.penyakit')) bg-blue-100 text-blue-700 @endif">
                                 <a href="{{ route('poli.index') }}"
@@ -186,6 +187,8 @@
                                     <span>Manajemen Poli</span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('view-dokter')
                             <li
                                 class="rounded-md p-2 hover:bg-blue-50 @if (request()->routeIs('laporan.dokter')) bg-blue-100 text-blue-700 @endif">
                                 <a href="{{ route('dokter.index') }}"
@@ -199,6 +202,8 @@
                                     <span>Manajemen Dokter</span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('view-icd10')
                             <li
                                 class="rounded-md p-2 hover:bg-blue-50 @if (request()->routeIs('laporan.tindakan')) bg-blue-100 text-blue-700 @endif">
                                 <a href="{{ Route('icd10_primary.index') }}"
@@ -212,19 +217,8 @@
                                     <span>Icd10 Primary</span>
                                 </a>
                             </li>
-                            <li
-                                class="rounded-md p-2 hover:bg-blue-50 @if (request()->routeIs('laporan.kematian')) bg-blue-100 text-blue-700 @endif">
-                                <a href="{{ Route('icd10_secondary.index') }}"
-                                    class="flex items-center gap-2 text-gray-700 hover:text-blue-700">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                        </path>
-                                    </svg>
-                                    <span>Icd10 Secondary</span>
-                                </a>
-                            </li>
+                            @endcan
+                            @can('view-icd9')
                             <li
                                 class="rounded-md p-2 hover:bg-blue-50 @if (request()->routeIs('laporan.kematian')) bg-blue-100 text-blue-700 @endif">
                                 <a href="{{ route('icd9.index') }}"
@@ -238,7 +232,8 @@
                                     <span>Icd9</span>
                                 </a>
                             </li>
-                            @can('role-list')
+                            @endcan
+                            @can('view-role')
                             <li
                                 class="rounded-md p-2 hover:bg-blue-50 @if (request()->routeIs('laporan.kematian')) bg-blue-100 text-blue-700 @endif">
                                   
@@ -251,6 +246,22 @@
                             </path>
                         </svg>
                         <span>Roles</span>
+                    </a>
+                </li>
+                @endcan
+                            @can('view-user')
+                            <li
+                                class="rounded-md p-2 hover:bg-blue-50 @if (request()->routeIs('laporan.kematian')) bg-blue-100 text-blue-700 @endif">
+                                  
+                              <a href="{{ route('users.index') }}"
+                              class="flex items-center gap-2 text-gray-700 hover:text-blue-700">
+                              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
+                        </svg>
+                        <span>User</span>
                     </a>
                 </li>
                 @endcan
