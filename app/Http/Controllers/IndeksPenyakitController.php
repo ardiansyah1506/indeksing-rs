@@ -27,7 +27,7 @@ class IndeksPenyakitController extends Controller
     if ($request->filled('tgl_awal') && $request->filled('tgl_akhir')) {
         $data->whereBetween('tgl_kunjungan', [$request->tgl_awal, $request->tgl_akhir]);
     }
-    $data = $data->select('master_indeksing.*','icd10_primary.nama AS diagnosa','icd10_primary.nama AS kode');
+    $data = $data->select('master_indeksing.*','icd10_primary.nama AS diagnosa','icd10_primary.kode AS kode');
     $data = $data->get();
     foreach ($data as $item) {
         // Asumsikan $item->usia adalah tanggal lahir, misalnya: '2000-04-08'

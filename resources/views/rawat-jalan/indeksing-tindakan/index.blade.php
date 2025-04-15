@@ -6,7 +6,7 @@
     <div class="max-w-full mx-auto bg-gray-100 p-4 min-h-screen">
         <div class="bg-gray-100 p-4 rounded-lg">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-800">INDEKS Tindakan</h2>
+                <h2 class="text-2xl font-bold text-gray-800">INDEKS TINDAKAN</h2>
                 <div class="flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-600" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
@@ -16,7 +16,7 @@
                     <span class="text-gray-600">Periode Rawat Jalan</span>
                 </div>
             </div>
-            <form action="{{ route('penyakit.index') }}" method="GET">
+            <form action="{{ route('penyakit.index') }}" id="form" method="GET">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-[4vw] justify-center items-center">
                     <div>
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="flex justify-center mt-6 space-x-4 mb-10">
-                    <button type="reset"
+                    <button type="reset" id="resetFormButton"
                         class="bg-yellow-500 text-white px-6 py-2 rounded flex items-center">Reset</button>
                     <button type="submit"
                         class="bg-blue-500 text-white px-6 py-2 rounded flex items-center">Search</button>
@@ -114,7 +114,7 @@
                                 <td class="p-3 border-b">{{ $item->diagnosa }}</td>
                                 <td class="p-3 border-b">{{ $item->kode }}</td>
                                 <td class="p-3 border-b">{{ $item->cara_keluar == 1 ? 'Hidup' : 'Mati' }}</td>
-                                <td class="p-3 border-b">
+                                <td class="p-3 border-b" data-keterangan="{{ $item->keterangan }}">
                                     <button class="bg-blue-500 text-white px-4 py-1 rounded">Lihat</button>
                                 </td>
                             </tr>
@@ -164,10 +164,30 @@
             </div>
         </div>
     </div>
+
+    @include('modal-keterangan')
 @endsection
 @section('js-custom')
 <script>
     $(document).ready(function() {
+        $('#resetFormButton').on('click', function() {
+            $('#form')[0].forformeset();
+        });
+        $('table').on('click', 'button', function() {
+            let keterangan = $(this).closest('td').data('keterangan');
+        $('#isiKeterangan').text(keterangan);
+        $('#modalKeterangan').removeClass('hidden').addClass('flex');
+    });
+    $('#closeModal').on('click', function() {
+        $('#modalKeterangan').removeClass('flex').addClass('hidden');
+    });
+
+    // Klik luar modal juga menutup modal
+    $('#modalKeterangan').on('click', function(e) {
+        if ($(e.target).is('#modalKeterangan')) {
+            $(this).removeClass('flex').addClass('hidden');
+        }
+    });
         $('#printPdfBtn').on('click', function(e) {
             e.preventDefault();
             // console.log('test')

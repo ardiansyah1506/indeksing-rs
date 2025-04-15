@@ -87,6 +87,29 @@ class IndeksingController extends Controller
         }
     }
 
+    public function show($id){
+        $data = MasterIndeksing::select('master_indeksing.*','icd10_primary.nama AS nama_icd10p','icd10_primary.kode AS kode_icd10p','icd10_secondary.nama AS nama_icd10s','icd9.nama AS nama_icd9')->join('icd10_primary','icd10_primary.id','master_indeksing.icd10primary')
+        ->join('icd10_secondary','icd10_secondary.id','master_indeksing.icd10secondary')
+        ->join('icd9','icd9.id','master_indeksing.icd9')
+        ->where('master_indeksing.id',$id)
+        ->first();
+        $dataIcd10Primary = ICD10Primary::get();
+        $dataIcd10Secondary = ICD10Secondary::get();
+        $dataIcd9 = ICD9::get();
+      $dataDokter = Dokter::get();
+        $dataPoli = Poli::get();
+        $id = MasterIndeksing::latest()->value('id') + 1;
+        // foreach ($data as $item) {
+        //     // Asumsikan $item->usia adalah tanggal lahir, misalnya: '2000-04-08'
+        //     $tanggalLahir = Carbon::parse($item->usia);
+        //     $item->umur = $tanggalLahir->age;
+        // }
+        // dd($data);
+        return view('master-indeksing.edit', compact('data','id'
+        ,'dataIcd10Primary'
+        ,'dataIcd10Secondary','dataIcd9','dataPoli','dataDokter'));
+   
+    }
     public function update(Request $request, $id)
     {
         $request->validate([

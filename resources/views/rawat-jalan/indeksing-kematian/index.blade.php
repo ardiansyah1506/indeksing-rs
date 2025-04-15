@@ -14,7 +14,7 @@
                 <span class="text-gray-600">Periode Rawat Jalan</span>
             </div>
         </div>
-        <form action="{{ route('indeksing-kematian.index') }}" method="GET">
+        <form action="{{ route('indeksing-kematian.index') }}" id="form" method="GET">
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-[4vw] justify-center items-center">
                 
@@ -32,7 +32,7 @@ value="{{ request('tgl_akhir') }}">
             </div>
         
             <div class="flex justify-center mt-6 space-x-4 mb-10">
-                <button type="reset" class="bg-yellow-500 text-white px-6 py-2 rounded flex items-center">Reset</button>
+                <button type="reset" id="resetFormButton" class="bg-yellow-500 text-white px-6 py-2 rounded flex items-center">Reset</button>
                 <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded flex items-center">Search</button>
             </div>
         </form>
@@ -90,7 +90,7 @@ value="{{ request('tgl_akhir') }}">
                         <td class="p-3 border-b">{{ $item->icd10primary }}</td>
                         <td class="p-3 border-b">{{ $item->icd10secondary }}</td>
                         <td class="p-3 border-b">{{ $item->cara_keluar == 1 ? 'Hidup' : 'Mati' }}</td>                      
-                        <td class="p-3 border-b">
+                        <td class="p-3 border-b" data-keterangan="{{ $item->keterangan }}">
                             <button class="bg-blue-500 text-white px-4 py-1 rounded">Lihat</button>
                         </td>
                     </tr>
@@ -139,6 +139,47 @@ value="{{ request('tgl_akhir') }}">
     </div>
 </div>
 
+    @include('modal-keterangan')
+    @endsection
+
+@section('js-custom')
+<script>
+    $(document).ready(function() {
+        $('table').on('click', 'button', function() {
+            let keterangan = $(this).closest('td').data('keterangan');
+        $('#isiKeterangan').text(keterangan);
+        $('#modalKeterangan').removeClass('hidden').addClass('flex');
+    });
+    $('#closeModal').on('click', function() {
+        $('#modalKeterangan').removeClass('flex').addClass('hidden');
+    });
+
+    // Klik luar modal juga menutup modal
+    $('#modalKeterangan').on('click', function(e) {
+        if ($(e.target).is('#modalKeterangan')) {
+            $(this).removeClass('flex').addClass('hidden');
+        }
+    });
+        // $('#printPdfBtn').on('click', function(e) {
+        //     e.preventDefault();
+        //     console.log('test')
+        //     // Ambil data dari form
+        //     var jenis_kunjungan = $('select[name="jenis_kunjungan"]').val();
+        //     var tgl_awal = $('input[name="tgl_awal"]').val();
+        //     var tgl_akhir = $('input[name="tgl_akhir"]').val();
+        //     var tindakan = $('input[name="tindakan"]').val();
+
+        //     // Bangun query string untuk URL cetak PDF
+        //     var queryString = $.param({
+        //         jenis_kunjungan: jenis_kunjungan,
+        //         tgl_awal: tgl_awal,
+        //         tgl_akhir: tgl_akhir,
+        //         tindakan: tindakan
+        //     });
+        //     window.open('/indeksing-penyakit/pdf?' + queryString, '_blank');
+        // });
+    });
+</script>
 @endsection
 
 
