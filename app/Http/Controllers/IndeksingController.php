@@ -8,6 +8,7 @@ use App\Models\ICD10Secondary;
 use App\Models\ICD9;
 use App\Models\MasterIndeksing;
 use App\Models\Poli;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Log;
 
@@ -26,22 +27,15 @@ class IndeksingController extends Controller
     $dataDokter = Dokter::get();
         $dataPoli = Poli::get();
         $id = MasterIndeksing::latest()->value('id') + 1;
+        foreach ($data as $item) {
+            // Asumsikan $item->usia adalah tanggal lahir, misalnya: '2000-04-08'
+            $tanggalLahir = Carbon::parse($item->usia);
+            $item->umur = $tanggalLahir->age;
+        }
         // dd($data);
         return view('master-indeksing.index', compact('data','id','dataIcd10Primary','dataIcd10Secondary','dataIcd9','dataPoli','dataDokter','dataCount'));
     }
 
-    public function getData(Request $request)
-    {
-        $data = MasterIndeksing::select(['id', 'no_rm', 'nama_pasien', 'tgl_kunjungan', 'usia', 'jk', 'jenis_kunjungan', 'icd10primary', 'icd10secondary', 'cara_keluar']);
-        
-        return DataTables::of($data)
-            ->addIndexColumn()
-            ->addColumn('action', function ($row) {
-                return '<button class="bg-blue-500 text-white px-4 py-1 rounded">Lihat</button>';
-            })
-            ->rawColumns(['action'])
-            ->make(true);
-    }
     public function store(Request $request)
     {
         try {
@@ -70,7 +64,7 @@ class IndeksingController extends Controller
                 'alamat' => $request->alamat,
                 'tgl_kunjungan' => $request->tgl_kunjungan,
                 'icd10primary' => $request->icd10primary,
-                'icd10secondary' => $request->icd10secondary ?? '-',
+                'icd10secondary' => $request->icd10secondary ,
                 'icd9' => $request->icd9,
                 'id_dokter' => $request->id_dokter,
                 'id_poli' => $request->id_poli,
@@ -79,7 +73,7 @@ class IndeksingController extends Controller
                 'keterangan' => $request->keterangan,
             ]);
     
-            return redirect()->route('master-indeksing.index')->with('success', 'Data berhasil ditambahkan!');
+            return redirect()->back()->with('success', 'Data berhasil ditambahkan!');
     
         } catch (\Exception $e) {
             // Log error ke Laravel log

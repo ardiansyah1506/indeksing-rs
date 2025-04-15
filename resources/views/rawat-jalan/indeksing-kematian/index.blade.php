@@ -1,9 +1,5 @@
 @extends('layouts.app')
 @section('css-custom')
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-<!-- Load Plugin printThis -->
-
 @endsection
 
 @section('content')
@@ -45,7 +41,7 @@ value="{{ request('tgl_akhir') }}">
 
         <div class="bg-blue-600 text-white p-3 rounded-t-lg flex justify-between items-center">
             <span class="font-bold">Total: {{ $dataCount }}</span>
-            <a href="/pdf" class="bg-blue-600 text-white font-bold px-6 py-2 rounded flex items-center">
+            {{-- <a href="/pdf" class="bg-blue-600 text-white font-bold px-6 py-2 rounded flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" width="100" height="100" viewBox="0,0,256,256">
                     <g fill="#fffefe" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                         <g transform="scale(5.12,5.12)">
@@ -54,7 +50,7 @@ value="{{ request('tgl_akhir') }}">
                     </g>
                 </svg>
                 Cetak
-            </a>
+            </a> --}}
         </div>
 
         <div class="overflow-x-auto bg-white rounded-b-lg">
@@ -88,7 +84,7 @@ value="{{ request('tgl_akhir') }}">
                         </td>
                         <td class="p-3 border-b">{{ $item->nama_pasien }}</td>
                         <td class="p-3 border-b">{{ $item->tgl_kunjungan }}</td>
-                        <td class="p-3 border-b">{{ $item->usia }}</td>
+                        <td class="p-3 border-b">{{ $item->umur }}</td>
                         <td class="p-3 border-b">{{ $item->jk == 1 ? 'Laki-Laki' : 'Perempuan' }}</td>                      
                         <td class="p-3 border-b">{{ $item->jenis_kunjungan == 1 ? 'Lama' : 'Baru' }}</td>                      
                         <td class="p-3 border-b">{{ $item->icd10primary }}</td>

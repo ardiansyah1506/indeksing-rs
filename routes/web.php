@@ -24,11 +24,15 @@ Route::post('register', [RegisterController::class, 'register'])->name('register
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('indeksing', IndeksingController::class);
-    Route::resource('indeksing-dokter', IndeksDokterController::class);
-    Route::resource('indeksing-kematian', IndeksKematianController::class);
-    Route::resource('indeksing-tindakan', IndeksTindakanController::class);
-    Route::resource('penyakit', IndeksPenyakitController::class);
-    Route::get('/pdf', [IndeksTindakanController::class, 'printPdf'])->name('pdf');
+    Route::resource('indeksing-dokter', IndeksDokterController::class)->only(['index']);
+    Route::resource('indeksing-kematian', IndeksKematianController::class)->only(['index']);
+    Route::resource('indeksing-tindakan', IndeksTindakanController::class)->only(['index']);
+    Route::resource('penyakit', IndeksPenyakitController::class)->only(['index']);
+    Route::get('/indeksing-tindakan/pdf', [IndeksTindakanController::class, 'printPdf']);
+    Route::get('/indeksing-penyakit/pdf', [IndeksPenyakitController::class, 'printPdf']);
+    Route::get('/dokter/pdf', [IndeksDokterController::class, 'printPdf']);
+    Route::get('/indeksing-dokter/pdf', [IndeksDokterController::class, 'printPdf']);
+    Route::get('/indeksing-kematian/pdf', [IndeksKematianController::class, 'printPdf']);
     Route::get('/viewPdf', [IndeksKematianController::class, 'viewPdf'])->name('pdf');
 
     Route::resource('dashboard', DashboardController::class);

@@ -18,7 +18,6 @@
                 {{ session('success') }}
             </div>
         @endif
-
         <form action="{{ route('indeksing.store') }}" method="POST" class="mb-6">
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-[2vw]">
@@ -71,7 +70,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Kode ICD 10 (Sekunder)</label>
-                        <select name="icd10secondary" required class="border border-gray-300 p-2 rounded w-full bg-white appearance-none">
+                        <select name="icd10secondary" class="border border-gray-300 p-2 rounded w-full bg-white appearance-none">
                             <option value="">Pilih Kode</option>
                          @foreach ($dataIcd10Secondary as $item)
                          <option value="{{ $item->id }} ">{{ $item->kode }} - {{ $item->nama }}</option>
@@ -109,8 +108,8 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Kunjungan*</label>
                         <select name="jenis_kunjungan" required class="border border-gray-300 p-2 rounded w-full bg-white appearance-none">
                             <option value="">Pilih Jenis Kunjungan</option>
-                            <option value="2">Lama</option>
                             <option value="1">Baru</option>
+                            <option value="2">Lama</option>
                         </select>
                     </div>
                     <div>
@@ -187,7 +186,7 @@
                         </td>
                         <td class="p-3 border-b">{{ $item->nama_pasien }}</td>
                         <td class="p-3 border-b">{{ $item->tgl_kunjungan }}</td>
-                        <td class="p-3 border-b">{{ $item->usia }}</td>
+                        <td class="p-3 border-b">{{ $item->umur }}</td>
                         <td class="p-3 border-b">{{ $item->jk == 1 ? 'Laki-Laki' : 'Perempuan' }}</td>                      
                         <td class="p-3 border-b">{{ $item->jenis_kunjungan == 1 ? 'Lama' : 'Baru' }}</td>                      
                         <td class="p-3 border-b">{{ $item->nama_icd10p }}</td>

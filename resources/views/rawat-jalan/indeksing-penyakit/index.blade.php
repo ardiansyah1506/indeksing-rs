@@ -53,16 +53,22 @@
 
         <div class="bg-blue-600 text-white p-3 rounded-t-lg flex justify-between items-center">
             <span class="font-bold">Total: {{ $dataCount }}</span>
-            <a href="/pdf" class="bg-blue-600 text-white font-bold px-6 py-2 rounded flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" width="100" height="100" viewBox="0,0,256,256">
-                    <g fill="#fffefe" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+            <button id="printPdfBtn" class="bg-blue-600 text-white font-bold px-6 py-2 rounded flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" width="100" height="100"
+                    viewBox="0,0,256,256">
+                    <g fill="#fffefe" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                        stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                        font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                        style="mix-blend-mode: normal">
                         <g transform="scale(5.12,5.12)">
-                            <path d="M21,3c-9.37891,0 -17,7.62109 -17,17c0,9.37891 7.62109,17 17,17c3.71094,0 7.14063,-1.19531 9.9375,-3.21875l13.15625,13.125l2.8125,-2.8125l-13,-13.03125c2.55469,-2.97656 4.09375,-6.83984 4.09375,-11.0625c0,-9.37891 -7.62109,-17 -17,-17zM21,5c8.29688,0 15,6.70313 15,15c0,8.29688 -6.70312,15 -15,15c-8.29687,0 -15,-6.70312 -15,-15c0,-8.29687 6.70313,-15 15,-15z"></path>
+                            <path
+                                d="M21,3c-9.37891,0 -17,7.62109 -17,17c0,9.37891 7.62109,17 17,17c3.71094,0 7.14063,-1.19531 9.9375,-3.21875l13.15625,13.125l2.8125,-2.8125l-13,-13.03125c2.55469,-2.97656 4.09375,-6.83984 4.09375,-11.0625c0,-9.37891 -7.62109,-17 -17,-17zM21,5c8.29688,0 15,6.70313 15,15c0,8.29688 -6.70312,15 -15,15c-8.29687,0 -15,-6.70312 -15,-15c0,-8.29687 6.70313,-15 15,-15z">
+                            </path>
                         </g>
                     </g>
                 </svg>
                 Cetak
-            </a>
+            </button>
         </div>
 
         <div class="overflow-x-auto bg-white rounded-b-lg">
@@ -96,7 +102,7 @@
                         </td>
                         <td class="p-3 border-b">{{ $item->nama_pasien }}</td>
                         <td class="p-3 border-b">{{ $item->tgl_kunjungan }}</td>
-                        <td class="p-3 border-b">{{ $item->usia }}</td>
+                        <td class="p-3 border-b">{{ $item->umur }}</td>
                         <td class="p-3 border-b">{{ $item->jk == 1 ? 'Laki-Laki' : 'Perempuan' }}</td>                      
                         <td class="p-3 border-b">{{ $item->jenis_kunjungan == 1 ? 'Lama' : 'Baru' }}</td>                      
                         <td class="p-3 border-b">{{ $item->diagnosa }}</td>
@@ -154,3 +160,27 @@
 @endsection
 
 
+@section('js-custom')
+<script>
+    $(document).ready(function() {
+        $('#printPdfBtn').on('click', function(e) {
+            e.preventDefault();
+            console.log('test')
+            // Ambil data dari form
+            var jenis_kunjungan = $('select[name="jenis_kunjungan"]').val();
+            var tgl_awal = $('input[name="tgl_awal"]').val();
+            var tgl_akhir = $('input[name="tgl_akhir"]').val();
+            var tindakan = $('input[name="tindakan"]').val();
+
+            // Bangun query string untuk URL cetak PDF
+            var queryString = $.param({
+                jenis_kunjungan: jenis_kunjungan,
+                tgl_awal: tgl_awal,
+                tgl_akhir: tgl_akhir,
+                tindakan: tindakan
+            });
+            window.open('/indeksing-penyakit/pdf?' + queryString, '_blank');
+        });
+    });
+</script>
+@endsection

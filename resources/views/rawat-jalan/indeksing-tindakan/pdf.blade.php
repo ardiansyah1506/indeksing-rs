@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Kartu Indeks Dokter - RSU Dian Nuswantoro Semarang</title>
+    <title>Kartu Indeks Tindakan - RSU Dian Nuswantoro Semarang</title>
     <style>
         @page {
             margin: 10px;
@@ -138,19 +138,23 @@
                         <span>: ...........................</span>
                     </div>
                     <div class="form-group">
-                        <span class="form-label">Nama Dokter</span>
-                        <span>: ...........................</span>
+                        <span class="form-label">Tindakan</span>
+                        <span>: {{ $nama }}</span>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">Kode ICD 9</span>
+                        <span>: {{ $kode }}</span>
                     </div>
                     <div class="form-group">
                         <span class="form-label">Bulan/Tahun</span>
-                        <span>: ...........................</span>
+                        <span>: {{ $dataWaktu }}</span>
                     </div>
                 </td>
             </tr>
         </table>
         
         <div class="title">
-            KARTU INDEKS DOKTER (RAWAT JALAN)
+            KARTU INDEKS TINDAKAN (RAWAT JALAN)
         </div>
         
         <div class="instructions">
@@ -170,9 +174,10 @@
                     <th rowspan="3">Nama</th>
                     <th rowspan="3">Poliklinik</th>
                     <th colspan="16">Golongan umur (Tahun)</th>
-                    <th rowspan="3">Kode ICD 9 Tindakan</th>
-                    <th rowspan="3">Kode ICD 10</th>
-                    <th colspan="2">Tanggal Kunjungan</th>
+                    <th colspan="2">Jenis Kunjungan</th>
+                    <th colspan="1">Kode ICD 10</th>
+                    <th colspan="1">Kode ICD 9 </th>
+                    <th rowspan="3">Dokter Yang Menangani</th>
                     <th rowspan="3">Keterangan</th>
                 </tr>
                 <tr>
@@ -184,6 +189,8 @@
                     <th colspan="2">25-44</th>
                     <th colspan="2">45-64</th>
                     <th colspan="2">&gt;65</th>
+                    <th rowspan="2">Baru</th>
+                    <th rowspan="2">Lama</th>
                     <th rowspan="2">Baru</th>
                     <th rowspan="2">Lama</th>
                 </tr>
@@ -215,40 +222,41 @@
                     <td>{{ $item->poli ?? '-' }}</td>
                     
                     <!-- Age group 0-28h -->
-                    <td>{{ ($item->usia == '0-28h' && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->usia == '0-28h' && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur == '0-28h' && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur == '0-28h' && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group <1 -->
-                    <td>{{ ($item->usia < 1 && $item->usia != '0-28h' && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->usia < 1 && $item->usia != '0-28h' && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur < 1 && $item->umur != '0-28h' && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur < 1 && $item->umur != '0-28h' && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group 1-5 -->
-                    <td>{{ ($item->usia >= 1 && $item->usia <= 5 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->usia >= 1 && $item->usia <= 5 && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur >= 1 && $item->umur <= 5 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur >= 1 && $item->umur <= 5 && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group 5-14 -->
-                    <td>{{ ($item->usia > 5 && $item->usia <= 14 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->usia > 5 && $item->usia <= 14 && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur > 5 && $item->umur <= 14 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur > 5 && $item->umur <= 14 && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group 15-24 -->
-                    <td>{{ ($item->usia >= 15 && $item->usia <= 24 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->usia >= 15 && $item->usia <= 24 && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur >= 15 && $item->umur <= 24 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur >= 15 && $item->umur <= 24 && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group 25-44 -->
-                    <td>{{ ($item->usia >= 25 && $item->usia <= 44 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->usia >= 25 && $item->usia <= 44 && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur >= 25 && $item->umur <= 44 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur >= 25 && $item->umur <= 44 && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group 45-64 -->
-                    <td>{{ ($item->usia >= 45 && $item->usia <= 64 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->usia >= 45 && $item->usia <= 64 && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur >= 45 && $item->umur <= 64 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur >= 45 && $item->umur <= 64 && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group >65 -->
-                    <td>{{ ($item->usia > 65 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->usia > 65 && $item->jk == 0) ? '✓' : '' }}</td>
-                    <td>{{ $item->kode_icd9 ?? '-' }}</td>
+                    <td>{{ ($item->umur > 65 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur > 65 && $item->jk == 0) ? $item->umur : '' }}</td>
+                    <td>{{ $item->jenis_kunjungan == 1 ? $item->umur : '' }}</td>
+                    <td>{{ $item->jenis_kunjungan == 2 ? $item->umur : '' }}</td>
                     <td>{{ $item->kode_icd10 }}</td>
-                    <td>{{ $item->jenis_kunjungan == 1 ? '✓' : '' }}</td>
-                    <td>{{ $item->jenis_kunjungan == 2 ? '✓' : '' }}</td>
+                    <td>{{ $item->kode_icd9 }}</td>
+                    <td>{{ $item->dokter }}</td>
                     <td>{{ $item->keterangan }}</td>
                 </tr>
                 @endforeach
@@ -256,6 +264,7 @@
                 <!-- Add empty rows to fill the table -->
                 @for ($i = count($data); $i < 20; $i++)
                 <tr>
+                    <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>

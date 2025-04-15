@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Kartu Indeks Dokter - RSU Dian Nuswantoro Semarang</title>
+    <title>Kartu Indeks Penyakit - RSU Dian Nuswantoro Semarang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @page {
             margin: 10px;
@@ -138,19 +139,23 @@
                         <span>: ...........................</span>
                     </div>
                     <div class="form-group">
-                        <span class="form-label">Nama Dokter</span>
-                        <span>: ...........................</span>
+                        <span class="form-label">Diagnosa</span>
+                        <span>: {{ $nama }}</span>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">Kode ICD 10</span>
+                        <span>: {{ $kode }}</span>
                     </div>
                     <div class="form-group">
                         <span class="form-label">Bulan/Tahun</span>
-                        <span>: ...........................</span>
+                        <span>: {{ $dataWaktu }}</span>
                     </div>
                 </td>
             </tr>
         </table>
         
         <div class="title">
-            KARTU INDEKS DOKTER (RAWAT JALAN)
+            KARTU INDEKS PENYAKIT (RAWAT JALAN)
         </div>
         
         <div class="instructions">
@@ -170,9 +175,9 @@
                     <th rowspan="3">Nama</th>
                     <th rowspan="3">Poliklinik</th>
                     <th colspan="16">Golongan umur (Tahun)</th>
-                    <th rowspan="3">Tanggal Kunjungan</th>
                     <th colspan="2">Kode ICD 10</th>
-                    <th rowspan="3">Kode ICD 9 Tindakan</th>
+                    <th colspan="2">Jenis Kunjungan</th>
+                    <th rowspan="3">Dokter Yang Menangani</th>
                     <th rowspan="3">Keterangan</th>
                 </tr>
                 <tr>
@@ -184,8 +189,10 @@
                     <th colspan="2">25-44</th>
                     <th colspan="2">45-64</th>
                     <th colspan="2">&gt;65</th>
-                    <th rowspan="2">Diagnosa Utama</th>
-                    <th rowspan="2">Diagnosa Sekunder</th>
+                    <th rowspan="2">Primary</th>
+                    <th rowspan="2">Sekunder</th>
+                    <th rowspan="2">Baru</th>
+                    <th rowspan="2">Lama</th>
                 </tr>
                 <tr>
                     <th>L</th>
@@ -212,7 +219,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->no_rm }}</td>
                     <td>{{ $item->nama_pasien }}</td>
-                    <td>{{ $item->poliklinik ?? '-' }}</td>
+                    <td>{{ $item->poli ?? '-' }}</td>
                     
                     <!-- Age group 0-28h -->
                     <td>{{ ($item->umur == '0-28h' && $item->jk == 1) ? '✓' : '' }}</td>
@@ -244,19 +251,20 @@
                     
                     <!-- Age group >65 -->
                     <td>{{ ($item->umur > 65 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->umur > 65 && $item->jk == 0) ? '✓' : '' }}</td>
-                    
-                    <td>{{ $item->tgl_kunjungan }}</td>
-                    <td>{{ $item->icd10primary }}</td>
-                    <td>{{ $item->icd10secondary }}</td>
-                    <td>{{ $item->icd9 ?? '-' }}</td>
-                    <td>{{ $item->cara_keluar == 1 ? 'H' : 'M' }}</td>
+                    <td >{{ ($item->umur > 65 && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td >{{ $item->kode ?? 'primary' }}</td> 
+                    <td>{{ $item->kode }}</td>
+                    <td>{{ $item->jenis_kunjungan == 1 ? '✓' : '' }}</td>
+                    <td>{{ $item->jenis_kunjungan == 2 ? '✓' : '' }}</td>
+                    <td >{{ $item->dokter  }}</td>
+                    <td >{{ $item->keterangan  }}</td>
                 </tr>
                 @endforeach
                 
                 <!-- Add empty rows to fill the table -->
-                @for ($i = count($data); $i < 20; $i++)
+                @for ($i = count($data); $i < 15; $i++)
                 <tr>
+                    <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>

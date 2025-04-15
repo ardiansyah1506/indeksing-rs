@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Kartu Indeks Dokter - RSU Dian Nuswantoro Semarang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @page {
             margin: 10px;
@@ -139,11 +140,11 @@
                     </div>
                     <div class="form-group">
                         <span class="form-label">Nama Dokter</span>
-                        <span>: ...........................</span>
+                        <span>: {{ $dokter }}</span>
                     </div>
                     <div class="form-group">
                         <span class="form-label">Bulan/Tahun</span>
-                        <span>: ...........................</span>
+                        <span>: {{ $dataWaktu }}</span>
                     </div>
                 </td>
             </tr>
@@ -172,7 +173,7 @@
                     <th colspan="16">Golongan umur (Tahun)</th>
                     <th rowspan="3">Tanggal Kunjungan</th>
                     <th colspan="2">Kode ICD 10</th>
-                    <th rowspan="3">Kode ICD 9 Tindakan</th>
+                    <th colspan="1">Kode ICD 9</th>
                     <th rowspan="3">Keterangan</th>
                 </tr>
                 <tr>
@@ -186,6 +187,7 @@
                     <th colspan="2">&gt;65</th>
                     <th rowspan="2">Diagnosa Utama</th>
                     <th rowspan="2">Diagnosa Sekunder</th>
+                    <th rowspan="2">Tindakan</th>
                 </tr>
                 <tr>
                     <th>L</th>
@@ -212,50 +214,49 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->no_rm }}</td>
                     <td>{{ $item->nama_pasien }}</td>
-                    <td>{{ $item->poliklinik ?? '-' }}</td>
+                    <td>{{ $item->poli ?? '-' }}</td>
                     
                     <!-- Age group 0-28h -->
-                    <td>{{ ($item->umur == '0-28h' && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->umur == '0-28h' && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur == '0-28h' && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur == '0-28h' && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group <1 -->
-                    <td>{{ ($item->umur < 1 && $item->umur != '0-28h' && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->umur < 1 && $item->umur != '0-28h' && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur < 1 && $item->umur != '0-28h' && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur < 1 && $item->umur != '0-28h' && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group 1-5 -->
-                    <td>{{ ($item->umur >= 1 && $item->umur <= 5 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->umur >= 1 && $item->umur <= 5 && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur >= 1 && $item->umur <= 5 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur >= 1 && $item->umur <= 5 && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group 5-14 -->
-                    <td>{{ ($item->umur > 5 && $item->umur <= 14 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->umur > 5 && $item->umur <= 14 && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur > 5 && $item->umur <= 14 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur > 5 && $item->umur <= 14 && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group 15-24 -->
-                    <td>{{ ($item->umur >= 15 && $item->umur <= 24 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->umur >= 15 && $item->umur <= 24 && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur >= 15 && $item->umur <= 24 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur >= 15 && $item->umur <= 24 && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group 25-44 -->
-                    <td>{{ ($item->umur >= 25 && $item->umur <= 44 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->umur >= 25 && $item->umur <= 44 && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur >= 25 && $item->umur <= 44 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur >= 25 && $item->umur <= 44 && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group 45-64 -->
-                    <td>{{ ($item->umur >= 45 && $item->umur <= 64 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->umur >= 45 && $item->umur <= 64 && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur >= 45 && $item->umur <= 64 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur >= 45 && $item->umur <= 64 && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group >65 -->
-                    <td>{{ ($item->umur > 65 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->umur > 65 && $item->jk == 0) ? '✓' : '' }}</td>
-                    
-                    <td>{{ $item->tgl_kunjungan }}</td>
-                    <td>{{ $item->icd10primary }}</td>
-                    <td>{{ $item->icd10secondary }}</td>
-                    <td>{{ $item->icd9 ?? '-' }}</td>
-                    <td>{{ $item->cara_keluar == 1 ? 'H' : 'M' }}</td>
+                    <td>{{ ($item->umur > 65 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td >{{ ($item->umur > 65 && $item->jk == 0) ? $item->umur : '' }}</td>
+                    <td >{{ $item->tgl_kunjungan ?? 'primary' }}</td> 
+                    <td >{{ $item->icd10 }}</td> 
+                    <td>{{ $item->icd10 }}</td>
+                    <td>{{ $item->icd9 }}</td>
+                    <td >{{ $item->keterangan  }}</td>
                 </tr>
                 @endforeach
                 
                 <!-- Add empty rows to fill the table -->
-                @for ($i = count($data); $i < 20; $i++)
+                @for ($i = count($data); $i < 15; $i++)
                 <tr>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
