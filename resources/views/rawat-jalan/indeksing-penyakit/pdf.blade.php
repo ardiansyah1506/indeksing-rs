@@ -222,37 +222,37 @@
                     <td>{{ $item->poli ?? '-' }}</td>
                     
                     <!-- Age group 0-28h -->
-                    <td>{{ ($item->umur == '0-28h' && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->umur == '0-28h' && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur == '0-28h' && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur == '0-28h' && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group <1 -->
-                    <td>{{ ($item->umur < 1 && $item->umur != '0-28h' && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->umur < 1 && $item->umur != '0-28h' && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur < 1 && $item->umur != '0-28h' && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur < 1 && $item->umur != '0-28h' && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group 1-5 -->
-                    <td>{{ ($item->umur >= 1 && $item->umur <= 5 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->umur >= 1 && $item->umur <= 5 && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur >= 1 && $item->umur <= 5 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur >= 1 && $item->umur <= 5 && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group 5-14 -->
-                    <td>{{ ($item->umur > 5 && $item->umur <= 14 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->umur > 5 && $item->umur <= 14 && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur > 5 && $item->umur <= 14 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur > 5 && $item->umur <= 14 && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group 15-24 -->
-                    <td>{{ ($item->umur >= 15 && $item->umur <= 24 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->umur >= 15 && $item->umur <= 24 && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur >= 15 && $item->umur <= 24 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur >= 15 && $item->umur <= 24 && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group 25-44 -->
-                    <td>{{ ($item->umur >= 25 && $item->umur <= 44 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->umur >= 25 && $item->umur <= 44 && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur >= 25 && $item->umur <= 44 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur >= 25 && $item->umur <= 44 && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group 45-64 -->
-                    <td>{{ ($item->umur >= 45 && $item->umur <= 64 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td>{{ ($item->umur >= 45 && $item->umur <= 64 && $item->jk == 0) ? '✓' : '' }}</td>
+                    <td>{{ ($item->umur >= 45 && $item->umur <= 64 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td>{{ ($item->umur >= 45 && $item->umur <= 64 && $item->jk == 0) ? $item->umur : '' }}</td>
                     
                     <!-- Age group >65 -->
-                    <td>{{ ($item->umur > 65 && $item->jk == 1) ? '✓' : '' }}</td>
-                    <td >{{ ($item->umur > 65 && $item->jk == 0) ? '✓' : '' }}</td>
-                    <td >{{ $item->kode ?? 'primary' }}</td> 
+                    <td>{{ ($item->umur > 65 && $item->jk == 1) ? $item->umur : '' }}</td>
+                    <td >{{ ($item->umur > 65 && $item->jk == 0) ? $item->umur : '' }}</td>
+                    <td >{{ $item->kode   }}</td> 
                     <td>{{ $item->kode }}</td>
                     <td>{{ $item->jenis_kunjungan == 1 ? '✓' : '' }}</td>
                     <td>{{ $item->jenis_kunjungan == 2 ? '✓' : '' }}</td>

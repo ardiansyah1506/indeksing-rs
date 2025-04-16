@@ -17,7 +17,7 @@ class IndeksingController extends Controller
     public function index()
     {
         $data = MasterIndeksing::select('master_indeksing.*','icd10_primary.nama AS nama_icd10p','icd10_primary.kode AS kode_icd10p','icd10_secondary.nama AS nama_icd10s','icd9.nama AS nama_icd9')->join('icd10_primary','icd10_primary.id','master_indeksing.icd10primary')
-        ->join('icd10_secondary','icd10_secondary.id','master_indeksing.icd10secondary')
+        ->leftJoin('icd10_secondary','icd10_secondary.id','master_indeksing.icd10secondary')
         ->join('icd9','icd9.id','master_indeksing.icd9')
         ->get();
         $dataIcd10Primary = ICD10Primary::get();

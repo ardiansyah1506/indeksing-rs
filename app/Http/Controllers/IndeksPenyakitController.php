@@ -43,7 +43,8 @@ public function printPdf(Request $request)
 {
     // Bangun query awal
     $query = MasterIndeksing::join('icd10_primary','icd10_primary.id','master_indeksing.icd10primary')
-    ->join('dokter','dokter.id', 'master_indeksing.id_dokter');
+    ->join('dokter','dokter.id', 'master_indeksing.id_dokter')
+    ->join('poli','poli.id', 'master_indeksing.id_poli');
 
     if ($request->filled('jenis_kunjungan')) {
         $query->where('jenis_kunjungan', $request->jenis_kunjungan );
@@ -67,8 +68,9 @@ public function printPdf(Request $request)
     $data = $query->select(
         'master_indeksing.*'
         ,'icd10_primary.nama AS diagnosa'
-        ,'icd10_primary.nama AS kode'
+        ,'icd10_primary.kode AS kode'
         ,'dokter.nama AS dokter'
+        ,'poli.nama AS poli'
     )->get();
     foreach ($data as $item) {
         // Asumsikan $item->usia adalah tanggal lahir, misalnya: '2000-04-08'
