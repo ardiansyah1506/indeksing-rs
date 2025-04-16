@@ -24,12 +24,6 @@ class RoleController extends Controller
         return view('roles.create',compact('permission'));
     }
     
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request): RedirectResponse
     {
         $request->validate( [

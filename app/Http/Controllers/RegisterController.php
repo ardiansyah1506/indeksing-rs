@@ -26,7 +26,8 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
+        $user->givePermissionTo('add-indeks');
+        $user->givePermissionTo('cetak-indeks');
         auth()->login($user);
 
             return redirect()->route('dashboard.index');
