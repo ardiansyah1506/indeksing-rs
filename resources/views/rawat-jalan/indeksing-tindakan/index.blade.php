@@ -59,19 +59,9 @@
                 <span class="font-bold">Total: {{ $dataCount }}</span>
                 @can('cetak-indeks')
                 <button id="printPdfBtn" class="bg-blue-600 text-white font-bold px-6 py-2 rounded flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" width="100" height="100"
-                        viewBox="0,0,256,256">
-                        <g fill="#fffefe" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
-                            stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
-                            font-family="none" font-weight="none" font-size="none" text-anchor="none"
-                            style="mix-blend-mode: normal">
-                            <g transform="scale(5.12,5.12)">
-                                <path
-                                    d="M21,3c-9.37891,0 -17,7.62109 -17,17c0,9.37891 7.62109,17 17,17c3.71094,0 7.14063,-1.19531 9.9375,-3.21875l13.15625,13.125l2.8125,-2.8125l-13,-13.03125c2.55469,-2.97656 4.09375,-6.83984 4.09375,-11.0625c0,-9.37891 -7.62109,-17 -17,-17zM21,5c8.29688,0 15,6.70313 15,15c0,8.29688 -6.70312,15 -15,15c-8.29687,0 -15,-6.70312 -15,-15c0,-8.29687 6.70313,-15 15,-15z">
-                                </path>
-                            </g>
-                        </g>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-white" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 2a1 1 0 00-1 1v5H4a2 2 0 00-2 2v7a2 2 0 002 2h2v3a1 1 0 001 1h10a1 1 0 001-1v-3h2a2 2 0 002-2v-7a2 2 0 00-2-2h-1V3a1 1 0 00-1-1H6zm1 2h10v4H7V4zm10 16H7v-5h10v5zm-3-2H10v-1h4v1z"/>
+                      </svg>
                     Cetak
                 </button>
                 @endcan
