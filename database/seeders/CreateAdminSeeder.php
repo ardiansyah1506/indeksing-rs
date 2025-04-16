@@ -10,9 +10,6 @@ use Spatie\Permission\Models\Role;
 
 class CreateAdminSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
             $user = User::create([

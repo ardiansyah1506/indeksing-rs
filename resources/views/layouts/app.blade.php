@@ -15,19 +15,14 @@
     <script></script>
     @yield('css-custom')
     <style>
-        .dropdown-content {
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+        .bg-medical {
+            background-image: url('/logo/LOGO LAB-01.png');
+            background-size:cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.1;
         }
-
-        .dropdown-content.show {
-            display: block;
-            opacity: 1;
-            max-height: 200px;
-            transition: max-height 0.3s ease-in, opacity 0.3s ease-in;
-        }
+       
     </style>
 </head>
 
@@ -285,7 +280,7 @@
         </div>
     </div>
     </div>
-    <div class="ml-64 p-6 w-full min-h-screen bg-center bg-no-repeat bg-contain relative" @yield('content') </div>
+    <div class="ml-64 p-6 w-full min-h-screen bg-center bg-no-repeat bg-contain relative"> @yield('content') </div>
 
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
         <!-- Main Content -->

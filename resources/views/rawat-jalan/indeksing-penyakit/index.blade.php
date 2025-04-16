@@ -106,7 +106,7 @@
                         <td class="p-3 border-b">{{ $item->tgl_kunjungan }}</td>
                         <td class="p-3 border-b">{{ $item->umur }}</td>
                         <td class="p-3 border-b">{{ $item->jk == 1 ? 'Laki-Laki' : 'Perempuan' }}</td>                      
-                        <td class="p-3 border-b">{{ $item->jenis_kunjungan == 1 ? 'Lama' : 'Baru' }}</td>                      
+                        <td class="p-3 border-b">{{ $item->jenis_kunjungan == 2 ? 'Lama' : 'Baru' }}</td>                      
                         <td class="p-3 border-b">{{ $item->diagnosa }}</td>
                         <td class="p-3 border-b">{{ $item->kode }}</td>
                         <td class="p-3 border-b">{{ $item->cara_keluar == 1 ? 'Hidup' : 'Mati' }}</td>                      
