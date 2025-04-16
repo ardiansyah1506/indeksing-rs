@@ -40,7 +40,7 @@
                 </div>
             </div>
 
-            <nav class="w-64 bg-white shadow-sm rounded-lg p-4 overflow-hidden">
+            <nav class="w-64  shadow-sm rounded-lg p-4 overflow-hidden">
                 <ul class="list-none p-0 space-y-2">
                     <!-- Dashboard -->
                     <li
