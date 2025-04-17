@@ -72,14 +72,14 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">Kode ICD 10 (Sekunder)</label>
                         <select name="icd10secondary" class="border border-gray-300 p-2 rounded w-full bg-white appearance-none">
                             <option value="">Pilih Kode</option>
-                         @foreach ($dataIcd10Secondary as $item)
+                         @foreach ($dataIcd10Primary as $item)
                          <option value="{{ $item->id }} ">{{ $item->kode }} - {{ $item->nama }}</option>
                          @endforeach
                         </select>
                     </div>
                     <div class="col-span-2">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Kode ICD 9 CM</label>
-                        <select name="icd9" required class="border border-gray-300 p-2 rounded w-full bg-white appearance-none">
+                        <select name="icd9" class="border border-gray-300 p-2 rounded w-full bg-white appearance-none">
                             <option value="">Pilih Kode</option>
                          @foreach ($dataIcd9 as $item)
                          <option value="{{ $item->id }} ">{{ $item->kode }} - {{ $item->nama }}</option>
@@ -183,7 +183,7 @@
                         <td class="p-3 border-b">{{ $item->tgl_kunjungan }}</td>
                         <td class="p-3 border-b">{{ $item->umur }}</td>
                         <td class="p-3 border-b">{{ $item->jk == 1 ? 'Laki-Laki' : 'Perempuan' }}</td>                      
-                        <td class="p-3 border-b">{{ $item->jenis_kunjungan == 1 ? 'Lama' : 'Baru' }}</td>                      
+                        <td class="p-3 border-b">{{ $item->jenis_kunjungan == 2 ? 'Lama' : 'Baru' }}</td>                      
                         <td class="p-3 border-b">{{ $item->nama_icd10p }}</td>
                         <td class="p-3 border-b">{{ $item->kode_icd10p }}</td>
                         <td class="p-3 border-b">{{ $item->cara_keluar == 1 ? 'Hidup' : 'Mati' }}</td>                      

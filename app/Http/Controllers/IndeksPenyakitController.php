@@ -11,7 +11,9 @@ class IndeksPenyakitController extends Controller
 {
     public function index(Request $request)
 {
-    $data = MasterIndeksing::join('icd10_primary','icd10_primary.id','master_indeksing.icd10primary');
+    $data = MasterIndeksing::join('icd10_primary','icd10_primary.id','master_indeksing.icd10primary')
+    ->join('dokter','dokter.id', 'master_indeksing.id_dokter')
+    ->join('poli','poli.id', 'master_indeksing.id_poli');
 
     if ($request->filled('jenis_kunjungan')) {
         $data->where('jenis_kunjungan', $request->jenis_kunjungan );
@@ -88,7 +90,6 @@ public function printPdf(Request $request)
     $kode        = $dataIcd->kode ?? '-';
     $currentDate = now()->format('d/m/Y');
     $total       = $data->count();
-
     // Generate PDF
     $pdf = Pdf::loadView('rawat-jalan.indeksing-penyakit.pdf', [
         'data'        => $data,

@@ -13,7 +13,8 @@ class IndeksDokterController extends Controller
     public function index(Request $request)
     {
         $data = MasterIndeksing::join('icd10_primary','icd10_primary.id','master_indeksing.icd10primary')
-        ->join('icd9','icd9.id','master_indeksing.icd9');
+        ->join('icd9','icd9.id','master_indeksing.icd9')
+        ->join('poli','poli.id','master_indeksing.id_poli');
         $dokter = Dokter::all();
 
         if ($request->filled('jenis_kunjungan')) {
@@ -30,7 +31,7 @@ class IndeksDokterController extends Controller
         if ($request->filled('tgl_awal') && $request->filled('tgl_akhir')) {
             $data->whereBetween('tgl_kunjungan', [$request->tgl_awal, $request->tgl_akhir]);
         }
-        $data = $data->select('master_indeksing.*','icd10_primary.nama AS diagnosa','icd10_primary.nama AS kode_icd10','icd9.kode as kode_icd9');
+        $data = $data->select('master_indeksing.*','poli.nama as poli','icd10_primary.nama AS diagnosa','icd10_primary.kode AS kode_icd10','icd9.kode as kode_icd9');
         $data = $data->get();
         foreach ($data as $item) {
             // Asumsikan $item->usia adalah tanggal lahir, misalnya: '2000-04-08'
@@ -52,7 +53,8 @@ public function printPdf(Request $request)
     // Bangun query awal
     $query = MasterIndeksing::join('icd10_primary','icd10_primary.id','master_indeksing.icd10primary')
     ->join('dokter','dokter.id', 'master_indeksing.id_dokter')
-    ->join('icd9','icd9.id', 'master_indeksing.icd9');
+    ->join('icd9','icd9.id', 'master_indeksing.icd9')
+    ->join('poli','poli.id','master_indeksing.id_poli');
 
     if ($request->filled('id_dokter')) {
         $query->where('id_dokter', $request->id_dokter );
@@ -69,6 +71,7 @@ public function printPdf(Request $request)
     $data = $query->select(
         'master_indeksing.*'
         ,'icd10_primary.nama AS diagnosa'
+        ,'poli.nama as poli'
         ,'icd10_primary.kode AS icd10'
         ,'icd9.kode AS icd9'
         ,'dokter.nama AS dokter'

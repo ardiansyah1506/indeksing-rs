@@ -25,21 +25,21 @@
                     <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Kunjungan*</label>
                     <select name="jenis_kunjungan" required class="border border-gray-300 p-2 rounded w-full bg-white appearance-none">
                         <option value="" disabled selected>Pilih Jenis Kunjungan</option>
-                        <option value="2">Lama</option>
-                        <option value="1">Baru</option>
+                            <option value="1"  {{ request('jenis_kunjungan') == '1' ? 'selected' : '' }}>Baru</option>
+                        <option value="2" {{ request('jenis_kunjungan') == '2' ? 'selected' : '' }}>Lama</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Awal*</label>
-                    <input type="date" name="tgl_awal" required class="border border-gray-300 p-2 rounded w-full bg-white">
+                    <input type="date" name="tgl_awal" value="{{ request('tgl_awal') }}" required class="border border-gray-300 p-2 rounded w-full bg-white">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Nama Penyakit*</label>
-                    <input type="text" name="nama_penyakit" required class="border border-gray-300 p-2 rounded w-full bg-white">
+                    <input type="text" name="nama_penyakit" value="{{ request('nama_penyakit') }}" required class="border border-gray-300 p-2 rounded w-full bg-white">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Akhir*</label>
-                    <input type="date" name="tgl_akhir" required class="border border-gray-300 p-2 rounded w-full bg-white">
+                    <input type="date" name="tgl_akhir" value="{{ request('tgl_akhir') }}" required class="border border-gray-300 p-2 rounded w-full bg-white">
                 </div>
             </div>
         
@@ -58,7 +58,6 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-white" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M6 2a1 1 0 00-1 1v5H4a2 2 0 00-2 2v7a2 2 0 002 2h2v3a1 1 0 001 1h10a1 1 0 001-1v-3h2a2 2 0 002-2v-7a2 2 0 00-2-2h-1V3a1 1 0 00-1-1H6zm1 2h10v4H7V4zm10 16H7v-5h10v5zm-3-2H10v-1h4v1z"/>
                   </svg>
-                  
                 Cetak
             </button>
             @endcan
@@ -182,14 +181,14 @@
             var jenis_kunjungan = $('select[name="jenis_kunjungan"]').val();
             var tgl_awal = $('input[name="tgl_awal"]').val();
             var tgl_akhir = $('input[name="tgl_akhir"]').val();
-            var tindakan = $('input[name="tindakan"]').val();
+            var nama_penyakit = $('input[name="nama_penyakit"]').val();
 
             // Bangun query string untuk URL cetak PDF
             var queryString = $.param({
                 jenis_kunjungan: jenis_kunjungan,
                 tgl_awal: tgl_awal,
                 tgl_akhir: tgl_akhir,
-                tindakan: tindakan
+                nama_penyakit: nama_penyakit
             });
             window.open('/indeksing-penyakit/pdf?' + queryString, '_blank');
         });

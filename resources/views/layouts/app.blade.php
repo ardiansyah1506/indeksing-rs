@@ -16,12 +16,21 @@
     @yield('css-custom')
     <style>
         .bg-medical {
-            background-image: url('/logo/LOGO LAB-01.png');
-            background-size:cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.1;
-        }
+    position: relative;
+    z-index: 0;
+}
+
+.bg-medical::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('/logo/LOGO LAB-01.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.1; /* hanya background yang transparan */
+    z-index: -1;
+}
        
     </style>
 </head>
@@ -29,7 +38,7 @@
 <body class="flex m-0 p-0 font-sans bg-gray-100">
     <!-- Sidebar -->
     <div
-        class="sidebar w-64 min-h-screen flex flex-col justify-between bg-sidebar p-5 fixed left-0 top-0 overflow-y-auto shadow-md z-10">
+        class="sidebar w-64 min-h-screen flex flex-col justify-between bg-sidebar p-5 fixed left-0 top-0 shadow-md z-10">
         <div>
 
             <div class="flex items-center gap-4 p-2.5 mb-6">
@@ -40,12 +49,12 @@
                 </div>
             </div>
 
-            <nav class="w-64  shadow-sm rounded-lg p-4 overflow-hidden">
+            <nav class="w-64 shadow-sm rounded-lg p-4 ">
                 <ul class="list-none p-0 space-y-2">
                     <!-- Dashboard -->
                     <li
                         class="rounded-md transition-colors @if (request()->routeIs('dashboard')) bg-blue-100 text-blue-700 font-medium @endif hover:bg-blue-50">
-                        <a href="" class="flex items-center gap-3 p-3 text-gray-700 hover:text-blue-700">
+                        <a href="{{route('dashboard.index')}}" class="flex items-center gap-3 p-3 text-gray-700 hover:text-blue-700">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -279,9 +288,9 @@
             </a>
         </div>
     </div>
-    </div>
-    <div class="ml-64 p-6 w-full min-h-screen bg-center bg-no-repeat bg-contain relative"> @yield('content') </div>
-
+</div>
+<div class="ml-64 p-6 w-full min-h-screen  relative"> @yield('content') 
+</div>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
         <!-- Main Content -->
         @yield('js-custom')
