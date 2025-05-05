@@ -87,7 +87,7 @@
                             <th class="p-3 border-b">Jenis Kelamin</th>
                             <th class="p-3 border-b">Jenis Kunjungan</th>
                             <th class="p-3 border-b">Diagnosa</th>
-                            <th class="p-3 border-b">Kode ICD</th>
+                            <th class="p-3 border-b">Dokter</th>
                             <th class="p-3 border-b">Cara Keluar</th>
                             <th class="p-3 border-b">Keterangan</th>
                         </tr>
@@ -98,7 +98,7 @@
                                 <td class="p-3 border-b">{{ $loop->iteration }}</td>
                                 <td class="p-3 border-b">
                                     <div class="flex items-center">
-                                        <span>{{ $item->no_rm }}</span>
+                                        <span>{{ str_pad($item->no_rm, 6, '0', STR_PAD_LEFT) }}</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 text-gray-500"
                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -112,7 +112,7 @@
                                 <td class="p-3 border-b">{{ $item->jk == 1 ? 'Laki-Laki' : 'Perempuan' }}</td>
                                 <td class="p-3 border-b">{{ $item->id_dokter == 1 ? 'Lama' : 'Baru' }}</td>
                                 <td class="p-3 border-b">{{ $item->diagnosa }}</td>
-                                <td class="p-3 border-b">{{ $item->kode_icd10 }}</td>
+                                <td class="p-3 border-b">{{ $item->dokter }}</td>
                                 <td class="p-3 border-b">{{ $item->cara_keluar == 1 ? 'Hidup' : 'Mati' }}</td>
                                 <td class="p-3 border-b" data-keterangan="{{ $item->keterangan }}">
                                     <button class="bg-blue-500 text-white px-4 py-1 rounded">Lihat</button>

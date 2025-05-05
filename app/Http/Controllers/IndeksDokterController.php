@@ -14,6 +14,7 @@ class IndeksDokterController extends Controller
     {
         $data = MasterIndeksing::join('icd10_primary','icd10_primary.id','master_indeksing.icd10primary')
         ->join('icd9','icd9.id','master_indeksing.icd9')
+        ->join('dokter','dokter.id','master_indeksing.id_dokter')
         ->join('poli','poli.id','master_indeksing.id_poli');
         $dokter = Dokter::all();
 
@@ -21,17 +22,18 @@ class IndeksDokterController extends Controller
             $data->where('jenis_kunjungan', $request->jenis_kunjungan );
         }
     
-        if ($request->filled('nama_penyakit')) {
-            $data->where(function($q) use ($request) {
-                $q->where('icd10_primary.nama', 'like', '%' . $request->nama_penyakit . '%')
-                  ->orWhere('icd10_primary.kode', 'like', '%' . $request->nama_penyakit . '%');
-            });
+        if ($request->filled('id_dokter')) {
+            $data->where('id_dokter', $request->id_dokter );
         }
+    
         
         if ($request->filled('tgl_awal') && $request->filled('tgl_akhir')) {
             $data->whereBetween('tgl_kunjungan', [$request->tgl_awal, $request->tgl_akhir]);
         }
-        $data = $data->select('master_indeksing.*','poli.nama as poli','icd10_primary.nama AS diagnosa','icd10_primary.kode AS kode_icd10','icd9.kode as kode_icd9');
+        $data = $data->select('master_indeksing.*','poli.nama as poli','icd10_primary.nama AS diagnosa'
+        ,'icd10_primary.kode AS kode_icd10','icd9.kode as kode_icd9'
+        ,'dokter.nama AS dokter'
+    );
         $data = $data->get();
         foreach ($data as $item) {
             // Asumsikan $item->usia adalah tanggal lahir, misalnya: '2000-04-08'
@@ -52,6 +54,7 @@ public function printPdf(Request $request)
 {
     // Bangun query awal
     $query = MasterIndeksing::join('icd10_primary','icd10_primary.id','master_indeksing.icd10primary')
+    ->leftJoin('icd10_secondary','icd10_secondary.id', 'master_indeksing.icd10secondary')
     ->join('dokter','dokter.id', 'master_indeksing.id_dokter')
     ->join('icd9','icd9.id', 'master_indeksing.icd9')
     ->join('poli','poli.id','master_indeksing.id_poli');
@@ -73,6 +76,7 @@ public function printPdf(Request $request)
         ,'icd10_primary.nama AS diagnosa'
         ,'poli.nama as poli'
         ,'icd10_primary.kode AS icd10'
+        ,'icd10_secondary.kode AS icd10sec'
         ,'icd9.kode AS icd9'
         ,'dokter.nama AS dokter'
     )->get();

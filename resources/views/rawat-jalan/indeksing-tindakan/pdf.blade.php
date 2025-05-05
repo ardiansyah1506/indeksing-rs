@@ -217,7 +217,7 @@
                 @foreach ($data as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->no_rm }}</td>
+                    <td>{{ str_pad($item->no_rm, 6, '0', STR_PAD_LEFT) }}</td>
                     <td>{{ $item->nama_pasien }}</td>
                     <td>{{ $item->poli ?? '-' }}</td>
                     

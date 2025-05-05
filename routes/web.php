@@ -15,6 +15,7 @@ use App\Http\Controllers\PoliController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login.index');
@@ -47,4 +48,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('dokter', DokterController::class);
     Route::resource('poli', PoliController::class);
     
+    Route::get('/search/icd/{number}', [SearchController::class, 'icd'])->name('search.icd');
 });

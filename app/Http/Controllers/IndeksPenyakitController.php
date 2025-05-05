@@ -13,6 +13,7 @@ class IndeksPenyakitController extends Controller
 {
     $data = MasterIndeksing::join('icd10_primary','icd10_primary.id','master_indeksing.icd10primary')
     ->join('dokter','dokter.id', 'master_indeksing.id_dokter')
+    ->join('icd9','icd9.id', 'master_indeksing.icd9')
     ->join('poli','poli.id', 'master_indeksing.id_poli');
 
     if ($request->filled('jenis_kunjungan')) {
@@ -21,15 +22,15 @@ class IndeksPenyakitController extends Controller
 
     if ($request->filled('nama_penyakit')) {
         $data->where(function($q) use ($request) {
-            $q->where('icd10_primary.nama', 'like', '%' . $request->nama_penyakit . '%')
-              ->orWhere('icd10_primary.kode', 'like', '%' . $request->nama_penyakit . '%');
+            $q->where('icd9.nama', 'like', '%' . $request->nama_penyakit . '%')
+              ->orWhere('icd9.kode', 'like', '%' . $request->nama_penyakit . '%');
         });
     }
     
     if ($request->filled('tgl_awal') && $request->filled('tgl_akhir')) {
         $data->whereBetween('tgl_kunjungan', [$request->tgl_awal, $request->tgl_akhir]);
     }
-    $data = $data->select('master_indeksing.*','icd10_primary.nama AS diagnosa','icd10_primary.kode AS kode');
+    $data = $data->select('master_indeksing.*','icd10_primary.nama AS diagnosa','icd10_primary.kode AS kode','icd9.kode AS icd9');
     $data = $data->get();
     foreach ($data as $item) {
         // Asumsikan $item->usia adalah tanggal lahir, misalnya: '2000-04-08'
@@ -45,6 +46,7 @@ public function printPdf(Request $request)
 {
     // Bangun query awal
     $query = MasterIndeksing::join('icd10_primary','icd10_primary.id','master_indeksing.icd10primary')
+    ->leftJoin('icd10_secondary','icd10_secondary.id', 'master_indeksing.icd10secondary')
     ->join('dokter','dokter.id', 'master_indeksing.id_dokter')
     ->join('poli','poli.id', 'master_indeksing.id_poli');
 
@@ -71,6 +73,7 @@ public function printPdf(Request $request)
         'master_indeksing.*'
         ,'icd10_primary.nama AS diagnosa'
         ,'icd10_primary.kode AS kode'
+        ,'icd9.kode AS icd9'
         ,'dokter.nama AS dokter'
         ,'poli.nama AS poli'
     )->get();
@@ -81,13 +84,20 @@ public function printPdf(Request $request)
     }
     // Ambil hanya nama & kode ICD dari data pertama
     $dataIcd = $queryIcd->select('icd10_primary.nama AS nama', 'icd10_primary.kode AS kode')->first();
+    $dataIcdSec = $queryIcd->select('icd10_secondary.nama AS nama', 'icd10_secondary.kode AS kode')->first();
+
+    $tglAwal = Carbon::parse($request->tgl_awal);
+$tglAkhir = Carbon::parse($request->tgl_akhir);
 
     // Ambil bulan & tahun
     $dataWaktu = Carbon::parse($request->tgl_awal)->format('F Y');
-
+    if ($tglAwal->diffInMonths($tglAkhir) > 1) {
+        $dataWaktu = $tglAwal->format('Y');
+    }
     // Siapkan data tambahan
     $nama        = $dataIcd->nama ?? '-';
     $kode        = $dataIcd->kode ?? '-';
+    $kodeSec        = $dataIcdSec->kode ?? '-';
     $currentDate = now()->format('d/m/Y');
     $total       = $data->count();
     // Generate PDF

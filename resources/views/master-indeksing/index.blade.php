@@ -61,29 +61,29 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Kode ICD 10 (Utama)</label>
-                        <select name="icd10primary" required class="border border-gray-300 p-2 rounded w-full bg-white appearance-none">
-                            <option value="">Pilih Kode</option>
+                        <select name="icd10primary" required class="icd10Select border border-gray-300 p-2 rounded w-full bg-white appearance-none">
+                            {{-- <option value="">Pilih Kode</option>
                          @foreach ($dataIcd10Primary as $item)
                          <option value="{{ $item->id }} ">{{ $item->kode }} - {{ $item->nama }}</option>
-                         @endforeach
+                         @endforeach --}}
                         </select>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Kode ICD 10 (Sekunder)</label>
-                        <select name="icd10secondary" class="border border-gray-300 p-2 rounded w-full bg-white appearance-none">
-                            <option value="">Pilih Kode</option>
+                        <select name="icd10secondary" class=" icd10Select border border-gray-300 p-2 rounded w-full bg-white appearance-none">
+                            {{-- <option value="">Pilih Kode</option>
                          @foreach ($dataIcd10Primary as $item)
                          <option value="{{ $item->id }} ">{{ $item->kode }} - {{ $item->nama }}</option>
-                         @endforeach
+                         @endforeach --}}
                         </select>
                     </div>
                     <div class="col-span-2">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Kode ICD 9 CM</label>
-                        <select name="icd9" class="border border-gray-300 p-2 rounded w-full bg-white appearance-none">
-                            <option value="">Pilih Kode</option>
+                        <select name="icd9" class="icd9Select border border-gray-300 p-2 rounded w-full bg-white appearance-none">
+                            {{-- <option value="">Pilih Kode</option>
                          @foreach ($dataIcd9 as $item)
                          <option value="{{ $item->id }} ">{{ $item->kode }} - {{ $item->nama }}</option>
-                         @endforeach
+                         @endforeach --}}
                         </select>
                     </div>
                     <div>
@@ -148,7 +148,7 @@
         <div class="bg-blue-600 text-white p-3 rounded-t-lg flex justify-between items-center">
             <span class="font-bold">Total: {{ $dataCount }}</span>
             <input type="text" placeholder="Search" class="border border-gray-300 p-2 rounded w-48 text-black">
-        </div>
+            </div>
 
         <div class="overflow-x-auto bg-white rounded-b-lg">
             <table class="w-full">
@@ -173,7 +173,7 @@
                         <td class="p-3 border-b">{{ $loop->iteration }}</td>
                         <td class="p-3 border-b">
                             <div class="flex items-center">
-                                <span>{{ $item->no_rm }}</span>
+                                <span>{{ str_pad($item->no_rm, 6, '0', STR_PAD_LEFT) }}</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                 </svg>
@@ -210,6 +210,11 @@
     @include('modal-keterangan')
     @endsection
 
+@section('css-custom')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@endsection
+
 @section('js-custom')
 <script>
     $(document).ready(function() {
@@ -230,6 +235,67 @@
         if ($(e.target).is('#modalKeterangan')) {
             $(this).removeClass('flex').addClass('hidden');
         }
+    });
+    $(document).ready(function() {
+        $('.icd9Select').select2({
+            ajax: {
+                url: '{{ route("search.icd", ["number" => 9]) }}', 
+                dataType: 'json',
+                type: 'GET',  
+                delay: 250,  
+                data: function (params) {
+                    return {
+                        query: params.term
+                    };
+                },
+                processResults: function (data) {
+                    const results = data.data.map(item => {
+                        return {
+                            id: item.id,
+                            text: `${item.kode} - ${item.nama}`
+                        };
+                    });
+
+                    return {
+                        results: results 
+                    };
+                },
+                cache: true 
+            },
+            placeholder: 'Pilih ICD 9 CM',
+            minimumInputLength: 1,
+            allowClear: true 
+        });
+
+        $('.icd10Select').select2({
+            ajax: {
+                url: '{{ route("search.icd", ["number" => 10]) }}', 
+                dataType: 'json',
+                type: 'GET',  
+                delay: 250,  
+                data: function (params) {
+                    return {
+                        query: params.term
+                    };
+                },
+                processResults: function (data) {
+                    const results = data.data.map(item => {
+                        return {
+                            id: item.id,
+                            text: `${item.kode} - ${item.nama}`
+                        };
+                    });
+
+                    return {
+                        results: results 
+                    };
+                },
+                cache: true 
+            },
+            placeholder: 'Pilih ICD 10',
+            minimumInputLength: 1,
+            allowClear: true 
+        });
     });
     });
 

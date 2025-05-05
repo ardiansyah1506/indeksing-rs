@@ -25,6 +25,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Kunjungan*</label>
                     <select name="jenis_kunjungan" required class="border border-gray-300 p-2 rounded w-full bg-white appearance-none">
                         <option value="" disabled selected>Pilih Jenis Kunjungan</option>
+                        <option value="" >Lihat Semua</option>
                             <option value="1"  {{ request('jenis_kunjungan') == '1' ? 'selected' : '' }}>Baru</option>
                         <option value="2" {{ request('jenis_kunjungan') == '2' ? 'selected' : '' }}>Lama</option>
                     </select>
@@ -98,7 +99,7 @@
                         <td class="p-3 border-b">{{ $item->jk == 1 ? 'Laki-Laki' : 'Perempuan' }}</td>                      
                         <td class="p-3 border-b">{{ $item->jenis_kunjungan == 2 ? 'Lama' : 'Baru' }}</td>                      
                         <td class="p-3 border-b">{{ $item->diagnosa }}</td>
-                        <td class="p-3 border-b">{{ $item->kode }}</td>
+                        <td class="p-3 border-b">{{ $item->icd9 }}</td>
                         <td class="p-3 border-b">{{ $item->cara_keluar == 1 ? 'Hidup' : 'Mati' }}</td>                      
                         <td class="p-3 border-b" data-keterangan="{{ $item->keterangan }}">
                             <button class="bg-blue-500 text-white px-4 py-1 rounded">Lihat</button>

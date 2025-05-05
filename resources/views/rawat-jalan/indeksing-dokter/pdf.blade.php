@@ -212,7 +212,7 @@
                 @foreach ($data as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->no_rm }}</td>
+                    <td>{{ str_pad($item->no_rm, 6, '0', STR_PAD_LEFT) }}</td>
                     <td>{{ $item->nama_pasien }}</td>
                     <td>{{ $item->poli ?? '-' }}</td>
                     
@@ -249,8 +249,8 @@
                     <td >{{ ($item->umur > 65 && $item->jk == 0) ? $item->umur : '' }}</td>
                     <td >{{ $item->tgl_kunjungan ?? 'primary' }}</td> 
                     <td >{{ $item->icd10 }}</td> 
-                    <td>{{ $item->icd10 }}</td>
-                    <td>{{ $item->icd9 }}</td>
+                    <td>{{ $item->icd10sec ?? '-' }}</td>
+                    <td>{{ $item->icd9 ?? '-' }}</td>
                     <td >{{ $item->keterangan  }}</td>
                 </tr>
                 @endforeach
