@@ -191,8 +191,8 @@
                     <th colspan="2">&gt;65</th>
                     <th rowspan="2">Baru</th>
                     <th rowspan="2">Lama</th>
-                    <th rowspan="2">Baru</th>
-                    <th rowspan="2">Lama</th>
+                    <th rowspan="2">Diagnosa Utama</th>
+                    <th rowspan="2">Tindakan</th>
                 </tr>
                 <tr>
                     <th>L</th>
@@ -252,8 +252,8 @@
                     <!-- Age group >65 -->
                     <td>{{ ($item->umur > 65 && $item->jk == 1) ? $item->umur : '' }}</td>
                     <td>{{ ($item->umur > 65 && $item->jk == 0) ? $item->umur : '' }}</td>
-                    <td>{{ $item->jenis_kunjungan == 1 ? $item->umur : '' }}</td>
-                    <td>{{ $item->jenis_kunjungan == 2 ? $item->umur : '' }}</td>
+                    <td>{{ $item->jenis_kunjungan == 1 ? '✓' : '' }}</td>
+                    <td>{{ $item->jenis_kunjungan == 2 ? '✓' : '' }}</td>
                     <td>{{ $item->kode_icd10 }}</td>
                     <td>{{ $item->kode_icd9 }}</td>
                     <td>{{ $item->dokter }}</td>

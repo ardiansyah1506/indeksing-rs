@@ -47,6 +47,7 @@ public function printPdf(Request $request)
     // Bangun query awal
     $query = MasterIndeksing::join('icd10_primary','icd10_primary.id','master_indeksing.icd10primary')
     ->leftJoin('icd10_secondary','icd10_secondary.id', 'master_indeksing.icd10secondary')
+    ->join('icd9','icd9.id', 'master_indeksing.icd9')
     ->join('dokter','dokter.id', 'master_indeksing.id_dokter')
     ->join('poli','poli.id', 'master_indeksing.id_poli');
 
@@ -56,8 +57,8 @@ public function printPdf(Request $request)
 
     if ($request->filled('nama_penyakit')) {
         $query->where(function($q) use ($request) {
-            $q->where('icd10_primary.nama', 'like', '%' . $request->nama_penyakit . '%')
-              ->orWhere('icd10_primary.kode', 'like', '%' . $request->nama_penyakit . '%');
+            $q->where('icd9.nama', 'like', '%' . $request->nama_penyakit . '%')
+              ->orWhere('icd9.kode', 'like', '%' . $request->nama_penyakit . '%');
         });
     }
     

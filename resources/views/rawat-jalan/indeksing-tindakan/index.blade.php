@@ -24,6 +24,7 @@
                         <select name="jenis_kunjungan" required
                             class="border border-gray-300 p-2 rounded w-full bg-white appearance-none">
                             <option value="" disabled selected>Pilih Jenis Kunjungan</option>
+                            <option value="">Pilih Semua Kunjungan</option>
                             <option value="2">Lama</option>
                             <option value="1">Baru</option>
                         </select>
